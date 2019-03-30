@@ -13,6 +13,8 @@ Markdown==3.0.1
 matplotlib==3.0.1
 mido==1.2.8
 mock==2.0.0
+mysql-connector-python==8.0.15
+mysqlclient==1.4.2.post1
 nms==0.1.6
 numpy==1.16.0
 opencv-python==4.0.0.21
