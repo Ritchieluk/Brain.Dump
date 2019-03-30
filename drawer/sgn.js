@@ -133,7 +133,7 @@ var sgn = (function(settings) {
 			o.innerHTML = settings.presets[c].name;
 			sel.appendChild(o);
 		}
-		settings.sidebarDiv.appendChild(sel)
+		settings.sidebarDiv.appendChild(sel);
 		presetEvent(settings.idNames.presets, "change");
 
 		e = document.createElement("DIV");
@@ -1352,7 +1352,7 @@ var sgn = (function(settings) {
 		drawCircles();
 
 	}
-
+	
 	function zoom(inOut) {
 
 		if(settings.zoomStack.length>1 && inOut==="in" && settings.zoomStack[0]<1) {
