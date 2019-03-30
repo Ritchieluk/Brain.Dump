@@ -37,3 +37,16 @@ ___
 *The Drawer* will be an image creation tool making use of parametric trig equations to generate
 a spirograph-like image. It can also make use of a multi-axis chart of percentages of different emotions
 for a less abstract representation.
+
+## Future Goals
+___
+We envision many future applications for such a device.
+
+- The machine learning tool could be reinforced by actual analyzation data from psychologists and psychiatrists, and be used to flag entries potentially indicative of mental illness
+- Users could view summaries of their journal entries via most used words, most present emotion, graphs of emotional changes, most common themes, etc.
+- This machine learning instance could be used on more than just braindumps, the braindump journaling platform could expand to blogs, message boards, forums, each of which would have icons indicative of the emotional content within. 
+- There could be multiple styles of artful icons that users could choose between
+- The main site page could be an image of the summarized emotional content of all recent posts, to create a snapshot of the recent mindset of its users
+- Users of the site could search through posts and entries via tag words and view user opinions on the site via summarized emotional content of all entries relevant to the tag word(s).
+- Users could feed the ML instance pre-written content to be analyzed and represented
+
