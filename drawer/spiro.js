@@ -156,7 +156,14 @@ var spiro = (function (input) {
 	}
 	// draws a curve based on the next set of arc values
 	function drawCurve(){
-		
+		var ctx = input.canvas.getContext("2d");
+		ctx.beginPath();
+		ctx.strokeStyle = input.curveColor;
+		ctx.lineWidth = input.penWidth;
+		ctx.moveTo(input.curvePoints[0].x, input.curvePoints[0].y);
+		ctx.lineTo(input.curvePoints[1].x, input.curvePoints[1].y);
+		ctx.stroke();
+		ctx.closePath();
 	}
 	// runs the drawing of the curve, until its finished, calling itself
 	function draw(){
