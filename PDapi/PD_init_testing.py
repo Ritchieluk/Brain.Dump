@@ -1,6 +1,7 @@
 import paralleldots
 #import PyMySQL
 import nltk
+import json
 from nltk.tokenize import sent_tokenize, word_tokenize
 
 # db = PyMySQL.connect("localhost","testuser","test123","TESTDB" )
@@ -40,3 +41,14 @@ print("Emotions Overall: ", emotions_overall)
 print("Sentiment Overall: ", sentiment_overall)
 print("Emotions Sentences: ", emotions_sentences)
 print("Sentiment Sentences: ", sentiment_overall)
+
+
+data = {}
+data['Overall'] = []
+data['Overall'].append(emotions_overall)
+data['Overall'].append(sentiment_overall)
+data['Sentences'] = []
+data['Sentences'].append(emotions_sentences)
+data['Sentences'].append(sentiment_sentences)
+with open('data.txt','w') as outfile:
+    json.dump(data,outfile)
