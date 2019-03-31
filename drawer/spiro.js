@@ -167,7 +167,52 @@ var spiro = (function (input) {
 	}
 	// runs the drawing of the curve, until its finished, calling itself
 	function draw(){
-		
+		//if we've cycled back to the beginning, then pause
+		if (
+			input.curvePoints[1] && input.incrementor > input.iterator &&
+			input.curvePoints[1].x === input.penStart.x &&
+			input.curvePoints[1].y.toFixed(1) === input.penStart.y.toFixed(1)
+		) 
+		{
+			var nd = new Date().getTime() / 1000;
+			input.timer = nd - input.timer;
+			//console.log(settings.timer);
+			
+			return;
+		}
+
+		var c = 0;
+		var speed = input.speed;
+
+		//loop through the speed iterations without a frame
+		//this should run at least once
+		while (c < speed) {
+			//if we've cycled back to the beginning, then pause
+			if (
+				input.curvePoints[1] && input.incrementor > input.iterator &&
+				input.curvePoints[1].x === input.penStart.x &&
+				input.curvePoints[1].y.toFixed(1) === input.penStart.y.toFixed(1)
+			) {
+				var nd = new Date().getTime() / 1000;
+				input.timer = nd - input.timer;
+				
+				break;
+			}
+			
+			drawCircles();
+			drawCurve();
+			//if we've done 1000 iterations, then call frame here, so there's some initial feedback
+			input.incrementor = input.incrementor + input.iterator;
+			c = c + input.iterator;
+		}
+
+		//draw
+		drawCircles();
+		drawCurve();
+
+		//if we're decimal on speed then create timeout
+			//or just request frame
+		requestAnimationFrame(draw);
 	}
 	// populates the colors array based on the arrays within the sentences array
 	function fillColors(){
@@ -214,6 +259,7 @@ var spiro = (function (input) {
 // input class
 	{
 	incrementor: 1,
+	iterator: .25,
 	origin: {
 		x: 0,
 		y: 0
