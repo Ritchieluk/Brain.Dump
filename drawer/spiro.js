@@ -25,14 +25,16 @@ var spiro = (function (input) {
 	// populates the colors array based on the arrays within the sentences array
 	function fillColors(){
 		for(i = 0; i < sentences.length; i++){
+			prevAvg = [0, 0, 0];
 			wAvg = [0,0,0];
 			for(j = 0; j < sentences[i].length; j++){
 				for (k = 0; k < emotionColors[j].length; k++)
 					wAvg[k] += sentences[i][j] * emotionColors[j][k];
 			}
 			for(j = 0; j < wAvg.length; j++){
-				wAvg[j] *= 1/100;
+				wAvg[j] = (wAvg[j] + prevAvg[j]) * .5;
 			}
+			prevAvg = wAvg;
 			colors.push(wAvg);
 		}
 	}
@@ -77,12 +79,12 @@ var spiro = (function (input) {
 	speed: 200,
 	penWidth: .1,
 	emotionColors: [
-		fear: [255, 255, 0],
-		anger: [255,0,0],
-		bored: [0, 255, 255],
-		sad: [0, 0, 255],
-		happy: [255, 0, 255],
-		excited: [0, 255, 0]
+		fear: [1, 1, 0],
+		anger: [1,0,0],
+		bored: [0, 1, 1],
+		sad: [0, 0, 1],
+		happy: [1, 0, 1],
+		excited: [0, 1, 0]
 	},	
 	}
 );
