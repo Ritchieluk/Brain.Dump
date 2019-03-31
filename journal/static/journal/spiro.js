@@ -32,9 +32,9 @@ var spiro = (function (input) {
 		input.drawPitches = [];
 		input.spinPitches = [];
 
-		if(frameCount % framePartition == 0){
+		if(input.frameCount % framePartition == 0){
 			input.colorIncrement++;
-			input.curveColor = input.colors[colorIncrement];
+			input.curveColor = input.colors[input.colorIncrement];
 		}
 		var c = 0;
 		
@@ -43,7 +43,7 @@ var spiro = (function (input) {
 		
 		//build arrays
 		while (c < 6) {
-			thisRotor = radii[c];
+			thisRotor = input.radii[c];
 
 			if (input.radiiTypes[c] == "h") {
 				if (c > 0) {
@@ -111,7 +111,8 @@ var spiro = (function (input) {
 
 			//set radii, applying zoom
 			thisRad = Number(input.radii[c]);
-			prevRad = Number(input.radii[c - 1]);
+			if(c>0)
+				prevRad = Number(input.radii[c - 1]);
 			if (input.radiiTypes[c] === "h") {
 				//hypitrochoid: circle inside
 				centerRad = prevRad - thisRad;
