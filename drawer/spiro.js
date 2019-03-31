@@ -38,7 +38,9 @@ var spiro = (function (input) {
 	}
 	// populates the radii array based on the emotions array.
 	function setRadii(){
-		
+		for(i = 0; i < emotions.length; i++){
+			radii[i] == 50*emotions[i];
+		}
 	}
 	// calculates the next point on a circle given its center, radius, and next angle)
 	function circlePoint(a, b, r, angle){
