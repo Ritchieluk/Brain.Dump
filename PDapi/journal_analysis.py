@@ -3,11 +3,11 @@ import nltk
 import json
 from nltk.tokenize import sent_tokenize, word_tokenize
 
-paralleldots.set_api_key("fFs3loWKeemuD6hmv3yHNUeXoGutlNuC9X1HAdAGFhs")
+paralleldots.set_api_key("EguUp9GKNVXAo92zUbmc1jnGbYP8W3A2GSX8UFw0kRQ")
 
 # Old Testing Data
 
-#text="""After May 1940 the good times were few and far between: first there was the war,
+# text="""After May 1940 the good times were few and far between: first there was the war,
 # then the capitulation and then the arrival of the Germans, which is when the trouble
 # started for the Jews. Our freedom was severely restricted by a series of anti-Jewish
 # decrees: Jews were required to wear a yellow star; Jews were required to turn in
@@ -56,4 +56,4 @@ def analyze_entry(raw_text):
 # print("Emotions Overall: ", ret['Overall'])
 # print(analyze_entry(text))
 
-#print(analyze_entry(text))
+# print(analyze_entry(text))
