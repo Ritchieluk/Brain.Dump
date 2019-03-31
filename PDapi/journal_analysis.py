@@ -7,7 +7,7 @@ paralleldots.set_api_key("9efcFdtiRA40KZomNNZ9BomU7OGQLVADN5hGSFWZUcg")
 
 # Old Testing Data
 
-# text="""After May 1940 the good times were few and far between: first there was the war,
+#text="""After May 1940 the good times were few and far between: first there was the war,
 # then the capitulation and then the arrival of the Germans, which is when the trouble
 # started for the Jews. Our freedom was severely restricted by a series of anti-Jewish
 # decrees: Jews were required to wear a yellow star; Jews were required to turn in
@@ -41,13 +41,14 @@ def analyze_entry(raw_text):
     sentences.update(sentiment_sentences)
     data = {'Overall' : overall, 'Sentences':sentences}
     #print("type of data: ", type(data))
-    data = json.dumps(data)
+    #data = json.dumps(data)
     #print("type of data: ",type(data))
     # data['Overall'].append(emotions_overall)
     # data['Overall'].append(sentiment_overall)
     # data['Sentences'] = []
     # data['Sentences'].append(emotions_sentences)
     # data['Sentences'].append(sentiment_sentences)
+    #print(type(data))
     return data
 
 # check to make sure the json holds the right data
@@ -55,5 +56,4 @@ def analyze_entry(raw_text):
 # print("Emotions Overall: ", ret['Overall'])
 # print(analyze_entry(text))
 
-
-# print(analyze_entry(text))
+#print(analyze_entry(text))
