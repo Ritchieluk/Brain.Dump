@@ -13,6 +13,7 @@ var spiro = (function (input) {
 			input.sentenceSentiment.push(emotionValues["Sentences"]["sentiment"][i]);
 		}
 		input.canvasID = document.getElementById(canvas);
+		
 		requestAnimationFrame(draw);
 	}
 	// calculates the next set of arc values and circle values
@@ -185,7 +186,7 @@ var spiro = (function (input) {
 			var nd = new Date().getTime() / 1000;
 			input.timer = nd - input.timer;
 			//console.log(settings.timer);
-			
+			input.incrementor = 0;
 			return;
 		}
 
@@ -203,7 +204,7 @@ var spiro = (function (input) {
 			) {
 				var nd = new Date().getTime() / 1000;
 				input.timer = nd - input.timer;
-				
+				input.incrementor = 0;
 				break;
 			}
 			input.frameCount++;
@@ -268,7 +269,7 @@ var spiro = (function (input) {
 })(
 // input class
 	{
-	incrementor: 1,
+	incrementor: 0,
 	iterator: .25,
 	origin: {
 		x: 0,
