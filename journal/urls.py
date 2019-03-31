@@ -17,8 +17,12 @@ from django.contrib import admin
 from django.urls import path
 import manage
 
+handler404 = 'journal.views.handler404'
+handler500 = 'journal.views.handler500'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+
 ]
 
 
