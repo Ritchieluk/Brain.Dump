@@ -22,8 +22,10 @@ class CreateListView(CreateView):
     model = Post
     template_name ='journal/home.html'
     fields = ['title', 'text']
+
     def form_valid(self,form):
-        return render (None,'journal/draw.html',analyze_entry(form.instance.text))
+        context = {'colors': json.dumps(analyze_entry(form.instance.text))}
+        return render (None,'journal/draw.html',context)
         #form.instance.author = self.user
         #return super().form_valid(form)
 
