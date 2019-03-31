@@ -62,6 +62,126 @@ var spiro = (function (input) {
 
 		//create url string for this config
 	}
+	// 
+	function drawCircles(){
+		var c = 0;
+		var i = input.incrementor;
+
+		var thisRad = 0;
+		var prevRad = 0;
+		var centerRad = 0;
+		var thisPitch = 0;
+		var prevPitch = 0;
+		var prevSpinPitch = 0;
+		var prevDrawPitch = 0;
+		var pen;
+
+		//clear circles canvas
+		var ctx = input.canvas.getContext("2d");
+		ctx.clearRect(0, 0, settings.canvasCircles.width, settings.canvasCircles.height);
+		
+
+		//start at the center
+		var pt = {
+			"x": input.origin.x,
+			"y": input.origin.y,
+		};
+
+		//draw rotor Circles
+		while (c < input.radii.length) {
+
+
+			//set radii, applying zoom
+			thisRad = Number(settings.radii[c]) * zoom;
+			prevRad = Number(settings.radii[c - 1]) * zoom;
+			if (settings.types[c] === "h") {
+				//hypitrochoid: circle inside
+				centerRad = prevRad - thisRad;
+			} else {
+				//eptrochoid: circle outside
+				centerRad = prevRad + thisRad;
+			}
+
+			//pitches are cumulative, so extract previous from array.
+			if (c > 0) {
+				prevPitch = prevPitch + settings.pitches[c - 1];
+				prevSpinPitch = prevSpinPitch + settings.spinPitches[c - 1];
+				prevDrawPitch = prevDrawPitch + settings.drawPitches[c - 1];
+			} else {
+				prevPitch = 0;
+				prevSpinPitch = 0;
+				prevDrawPitch = 0;
+			}
+
+			//set travel direction
+			var mult = settings.directions[c];
+
+			//set draw pitch
+			var thisPitch = (settings.drawPitches[c] + prevDrawPitch) * mult;
+
+			//set pen pitch
+			//physics here is subjective
+			var os = (c > 1) ? 1 : 0;
+			if (settings.types[c] === "h") {
+				var penPitch = (settings.spinPitches[c] + prevSpinPitch) * mult * -1;
+			} else {
+				var penPitch = (settings.spinPitches[c] + prevSpinPitch) * mult;
+			}
+
+			//draw this rotor
+			var pt = circlePoint(pt.x, pt.y, centerRad, i * thisPitch);
+			if (settings.circles === "show") {
+				drawOneCircle(settings.canvasCircles, pt.x, pt.y, thisRad);
+			}
+
+			//draw Pen
+			//pen pitch set in last circle iteration
+			var penPt = circlePoint(pt.x, pt.y, thisRad, i * penPitch);
+			if (settings.circles === "show") {
+				var ctx = settings.canvasCircles.getContext("2d");
+				ctx.lineWidth = .3;
+				ctx.lineStyle = settings.circleColor;
+				ctx.beginPath();
+				ctx.moveTo(pt.x, pt.y);
+				ctx.lineTo(penPt.x, penPt.y);
+				ctx.stroke();
+				ctx.closePath();
+				//circle for pen Point
+			}
+			c++;
+		}
+
+		//draw Pen
+		//pen pitch set in last circle iteration
+		var penPt = circlePoint(pt.x, pt.y, settings.penRad * zoom, i * penPitch);
+
+		//mark our starting point
+		if (settings.i === 0) {
+			settings.penStart = penPt;
+		}
+
+		//line from center to pen
+		if (settings.circles === "show") {
+			var ctx = settings.canvasCircles.getContext("2d");
+			ctx.lineWidth = .2;
+			ctx.lineStyle = settings.circleColor;
+			ctx.beginPath();
+			ctx.moveTo(pt.x, pt.y);
+			ctx.lineTo(penPt.x, penPt.y);
+			ctx.stroke();
+			ctx.closePath();
+
+			//circle for pen Point
+			drawOneCircle(settings.canvasCircles, penPt.x, penPt.y, 1, true);
+		}
+
+		//update curve points for drawCurve()
+		//only maintain previous point, so we'll always plot previous to current.
+		settings.curvePoints.push(penPt);
+		if (settings.curvePoints.length > 2) {
+			settings.curvePoints.shift();
+		}
+	}
 	// draws a curve based on the next set of arc values
 	function drawCurve(){
 		
@@ -115,6 +235,10 @@ var spiro = (function (input) {
 // input class
 	{
 	incrementor: 1,
+	origin: {
+		x: 0,
+		y: 0
+	},		
 	curveColor: "",
 	canvasID: "canvasID",
 	// array of arrays, emotion data for each sentence 
