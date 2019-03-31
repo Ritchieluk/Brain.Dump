@@ -5,7 +5,7 @@ var spiro = (function (input) {
 	}
 	// 
 	function load(dict, canvas){
-		var emotionValues = dict;
+		var emotionValues = JSON.parse(dict);
 		input.emotions = emotionValues["Overall"]["emotion"];
 		input.sentiment = emotionValues["Overall"]["sentiment"];
 		for (i= 0; i < emotionValues["Sentences"]["emotion"].length; i++){
