@@ -24,7 +24,17 @@ var spiro = (function (input) {
 	}
 	// populates the colors array based on the arrays within the sentences array
 	function fillColors(){
-		
+		for(i = 0; i < sentences.length; i++){
+			wAvg = [0,0,0];
+			for(j = 0; j < sentences[i].length; j++){
+				for (k = 0; k < emotionColors[j].length; k++)
+					wAvg[k] += sentences[i][j] * emotionColors[j][k];
+			}
+			for(j = 0; j < wAvg.length; j++){
+				wAvg[j] *= 1/100;
+			}
+			colors.push(wAvg);
+		}
 	}
 	// populates the radii array based on the emotions array.
 	function setRadii(){
@@ -51,7 +61,7 @@ var spiro = (function (input) {
 	{
 	canvasID: "canvasID",
 	// array of arrays, emotion data for each sentence 
-	sentences: [],
+	sentenceEmotions: [],
 	// array of emotion data for whole entry
 	emotions: [],
 	// array of radii for the circles
@@ -63,7 +73,15 @@ var spiro = (function (input) {
 	// an array of arc values, previous and current. Always draw previous to current
 	arcValues: [],
 	speed: 200,
-	penWidth: .1
+	penWidth: .1,
+	emotionColors: [
+		fear: [255, 255, 0],
+		anger: [255,0,0],
+		bored: [0, 255, 255],
+		sad: [0, 0, 255],
+		happy: [255, 0, 255],
+		excited: [0, 255, 0]
+	},	
 	}
 );
 	
