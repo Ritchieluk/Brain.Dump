@@ -19,6 +19,10 @@ var spiro = (function (input) {
 			input.sentenceSentiment.push(emotionValues["Sentences"]["sentiment"][i]);
 		}
 		input.canvasID = document.getElementById(canvas);
+
+		fillColors();
+		setRadii();
+		setValues();
 		requestAnimationFrame(draw);
 	}
 	// calculates the next set of arc values and circle values
@@ -108,7 +112,7 @@ var spiro = (function (input) {
 			//set radii, applying zoom
 			thisRad = Number(input.radii[c]);
 			prevRad = Number(input.radii[c - 1]);
-			if (input.inputTypes[c] === "h") {
+			if (input.radiiTypes[c] === "h") {
 				//hypitrochoid: circle inside
 				centerRad = prevRad - thisRad;
 			} else {
@@ -185,7 +189,7 @@ var spiro = (function (input) {
 		if (
 			(input.curvePoints[1] && input.incrementor > input.iterator &&
 			input.curvePoints[1].x === input.penStart.x &&
-			input.curvePoints[1].y.toFixed(1) === input.penStart.y.toFixed(1))||frameCount > frameMax
+			input.curvePoints[1].y.toFixed(1) === input.penStart.y.toFixed(1))||input.frameCount > input.frameMax
 		) 
 		{
 			var nd = new Date().getTime() / 1000;
@@ -205,7 +209,7 @@ var spiro = (function (input) {
 			if (
 				(input.curvePoints[1] && input.incrementor > input.iterator &&
 				input.curvePoints[1].x === input.penStart.x &&
-				input.curvePoints[1].y.toFixed(1) === input.penStart.y.toFixed(1))||frameCount > frameMax
+				input.curvePoints[1].y.toFixed(1) === input.penStart.y.toFixed(1))||input.frameCount > input.frameMax
 			) {
 				var nd = new Date().getTime() / 1000;
 				input.timer = nd - input.timer;
@@ -246,7 +250,7 @@ var spiro = (function (input) {
 			prevAvg = wAvg;
 			input.colors.push(wAvg);
 		}
-		framePartition = frameMax / input.sentenceEmotions.length;
+		framePartition = input.frameMax / input.sentenceEmotions.length;
 	}
 	// populates the radii array based on the emotions array.
 	function setRadii(){
