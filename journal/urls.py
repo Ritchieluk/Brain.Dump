@@ -24,7 +24,7 @@ handler404 = 'journal.views.handler404'
 handler500 = 'journal.views.handler500'
 
 urlpatterns = [
-    path('', CreateListView.as_view() , name='blog-home'),
+    path('', CreateListView.as_view() , name='journal-home'),
     path('admin/', admin.site.urls),
 
 ]

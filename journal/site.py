@@ -1,1 +1,0 @@
-registry_key = SOFTWARE\MySQL AB\MySQL Server 5.0
