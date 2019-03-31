@@ -1122,6 +1122,7 @@ var sgn = (function(settings) {
 				settings.circleReset = false;
 			}
 			drawCircles();
+			console.log("Frames: " + settings.frameCount);
 			return;
 		}
 
@@ -1132,6 +1133,8 @@ var sgn = (function(settings) {
 				settings.circleReset = false;
 			}
 			drawCircles();
+			console.log("Frames: " + settings.frameCount);
+
 			return;
 		}
 
@@ -1199,14 +1202,14 @@ var sgn = (function(settings) {
 			if (circles) {
 				settings.circles = "show";
 			}
-
+			settings.frameCount++; 
 			drawCircles();
 			drawCurve();
 			//if we've done 1000 iterations, then call frame here, so there's some initial feedback
 			settings.i = settings.i + settings.iterator;
 			c = c + settings.iterator;
 		}
-
+		settings.frameCount++;
 		//draw
 		drawCircles();
 		drawCurve();
@@ -1409,6 +1412,7 @@ var sgn = (function(settings) {
 	//settings object
 	{
 		"draw": false,
+		"frameCount": 0,
 		"i": 0,
 		"iOffset": 90,
 		"iPosition": 0,
