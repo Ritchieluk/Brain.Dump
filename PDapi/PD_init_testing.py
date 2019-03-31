@@ -37,10 +37,10 @@ emotions_overall=paralleldots.emotion(text)
 sentiment_overall = paralleldots.sentiment(text)
 emotions_sentences = paralleldots.batch_emotion(text_sentences)
 sentiment_sentences = paralleldots.batch_sentiment(text_sentences)
-print("Emotions Overall: ", emotions_overall)
-print("Sentiment Overall: ", sentiment_overall)
-print("Emotions Sentences: ", emotions_sentences)
-print("Sentiment Sentences: ", sentiment_overall)
+# print("Emotions Overall: ", emotions_overall)
+# print("Sentiment Overall: ", sentiment_overall)
+# print("Emotions Sentences: ", emotions_sentences)
+# print("Sentiment Sentences: ", sentiment_overall)
 
 
 data = {}
@@ -50,5 +50,5 @@ data['Overall'].append(sentiment_overall)
 data['Sentences'] = []
 data['Sentences'].append(emotions_sentences)
 data['Sentences'].append(sentiment_sentences)
-with open('data.txt','w') as outfile:
-    json.dump(data,outfile)
+# with open('data.txt','w') as outfile:
+#     json.dump(data,outfile)
