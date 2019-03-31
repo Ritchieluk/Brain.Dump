@@ -3,10 +3,15 @@ var spiro = (function (input) {
 	return {
 		load: load
 	}
-	// 
+	//
+	function decodeHtml(html) {
+		var txt = document.createElement("textarea");
+		txt.innerHTML = html;
+		return txt.value;
+	}
 	function load(dict, canvas){
 
-		var emotionValues = JSON.parse(unescape(dict));
+		var emotionValues = JSON.parse(decodeHtml(dict));
 		input.emotions = emotionValues["Overall"]["emotion"];
 		input.sentiment = emotionValues["Overall"]["sentiment"];
 		for (i= 0; i < emotionValues["Sentences"]["emotion"].length; i++){
