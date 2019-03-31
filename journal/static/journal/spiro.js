@@ -93,6 +93,7 @@ var spiro = (function (input) {
 		var prevSpinPitch = 0;
 		var prevDrawPitch = 0;
 		var pen;
+		var penPitch = 0;
 
 		//clear circles canvas
 		var ctx = input.canvasID.getContext("2d");
