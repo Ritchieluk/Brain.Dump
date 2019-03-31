@@ -12,7 +12,55 @@ var spiro = (function (input) {
 	}
 	// calculates the next set of arc values and circle values
 	function setValues(){
+
+		//settings.types = [""];
+		input.pitches = [1];
+		input.drawPitches = [];
+		input.spinPitches = [];
+
+		var c = 0;
 		
+		var thisRotor;
+		var thisType;
+		
+		//build arrays
+		while (c < 6) {
+			thisRotor = radii[c];
+
+			if (input.radiiTypes[c] == "h") {
+				if (c > 0) {
+					input.drawPitches.push(input.spinPitches[c - 1]);
+					input.spinPitches.push((input.radii[c] / thisRotor) - 1);
+					if (input.radiiTypes[c - 1] === "h") {
+						input.directions.push(input.directions[c]);
+					} else {
+						input.directions.push(input.directions[c] * -1);
+					}
+				} else {
+					input.directions = [1, 1];
+					input.drawPitches.push(1);
+					input.spinPitches.push((input.radii[c] / thisRotor) - 1);
+				}
+			} else {
+				if (c > 0) {
+					input.drawPitches.push(input.spinPitches[c - 1]);
+					input.spinPitches.push((input.radii[c] / thisRotor) + 1);
+					if (input.radiiTypes[c] === "h") {
+						input.directions.push(input.directions[c]);
+					} else(
+						input.directions.push(input.directions[c] * -1)
+					)
+				} else {
+					input.directions = [1, 1];
+					input.drawPitches.push(1);
+					input.spinPitches.push((input.radii[c] / thisRotor) + 1);
+
+				}
+			}
+			c++;
+		}
+
+		//create url string for this config
 	}
 	// draws a curve based on the next set of arc values
 	function drawCurve(){
@@ -31,8 +79,10 @@ var spiro = (function (input) {
 				for (k = 0; k < emotionColors[j].length; k++)
 					wAvg[k] += sentences[i][j] * emotionColors[j][k];
 			}
-			for(j = 0; j < wAvg.length; j++){
-				wAvg[j] = (wAvg[j] + prevAvg[j]) * .5;
+			if (i > 0){
+				for(j = 0; j < wAvg.length; j++){
+					wAvg[j] = (wAvg[j] + prevAvg[j]) * .5 * (sentiment[1] + sentiment[2]);
+				}
 			}
 			prevAvg = wAvg;
 			colors.push(wAvg);
@@ -42,6 +92,7 @@ var spiro = (function (input) {
 	function setRadii(){
 		for(i = 0; i < emotions.length; i++){
 			radii[i] == 50*emotions[i];
+			radiiTypes[i].push("h");
 		}
 	}
 	// calculates the next point on a circle given its center, radius, and next angle)
@@ -63,6 +114,8 @@ var spiro = (function (input) {
 })(
 // input class
 	{
+	incrementor: 1,
+	curveColor: "",
 	canvasID: "canvasID",
 	// array of arrays, emotion data for each sentence 
 	sentenceEmotions: [],
@@ -70,6 +123,7 @@ var spiro = (function (input) {
 	emotions: [],
 	// array of radii for the circles
 	radii: [0, 0, 0, 0, 0, 0],
+	radiiTypes: [],
 	// array of colors, a color for each sentence
 	colors: [],
 	// an array of (x,y) tuples for each circles
@@ -85,7 +139,8 @@ var spiro = (function (input) {
 		sad: [0, 0, 1],
 		happy: [1, 0, 1],
 		excited: [0, 1, 0]
-	},	
+	],	
+	sentiment: [0, 0, 0]
 	}
 );
 	
