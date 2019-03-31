@@ -9,12 +9,12 @@ def home(request):
     context = {
         'posts':Post.objects.all()
     }
-    return render(request, 'journal/home.html',context)
+    return render(request, 'journal/post_form.html',context)
 
 class CreateListView(CreateView):
     model = Post
     template_name ='journal/home.html'
-    fields = ['title', 'content']
+    fields = ['title', 'text']
     # def form_valid(self,form):
     #     form.instance.author = self.user
     #     return 
