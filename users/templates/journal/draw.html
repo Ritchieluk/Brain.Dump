@@ -7,10 +7,13 @@
   <title>Site</title>
 </head>
 <body>
-    <div class="content-section">
-       <canvas id="spire"></canvas>
+    <div id="pad" class="pad" style="width:98.5%;height:694px;background:white">
+        <canvas id="canvasCircles" height="894" width="764" style="left:136px;top:-92px;position:absolute;z-index:10">
+        </canvas>
+        <canvas id="canvasPen" height="894" width="764" style="left:136px;top:-92px;position:absolute;z-index:20">
+
+        </canvas>
     </div>
-    {{colors}}
-    <script>spiro.load("{{colors}}", "spire")</script>
+    <script>spiro.load("{{colors}}", "pad")</script>
 </body>
 {% endblock content %}
