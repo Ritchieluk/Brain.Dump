@@ -288,12 +288,12 @@ var spiro = (function (input) {
 	speed: 200,
 	penWidth: .1,
 	emotionColors: [
-		fear: [1, 1, 0],
-		anger: [1,0,0],
-		bored: [0, 1, 1],
-		sad: [0, 0, 1],
-		happy: [1, 0, 1],
-		excited: [0, 1, 0]
+		[1, 1, 0],
+		[1,0,0],
+		[0, 1, 1],
+		[0, 0, 1],
+		[1, 0, 1],
+		[0, 1, 0],
 	],	
 	sentiment: [0, 0, 0]
 	}
