@@ -1,5 +1,23 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.shortcuts import render
+from django.http import HttpResponse
+from .models import Post 
+from django.views.generic import ListView, CreateView
+
+def home(request):
+    context = {
+        'posts':Post.objects.all()
+    }
+    return render(request, 'blog/home.html',context)
+
+class CreateListView(CreateView):
+    model = Post
+    template_name ='blog/home.html'
+    fields = ['title', 'content']
+    # def form_valid(self,form):
+    #     form.instance.author = self.user
+    #     return 
 
 
 def handler404(request, *args, **argv):

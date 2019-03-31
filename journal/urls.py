@@ -16,11 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 import manage
+from django.urls import path
+from .views import CreateListView
+from . import views
 
 handler404 = 'journal.views.handler404'
 handler500 = 'journal.views.handler500'
 
 urlpatterns = [
+    path('', CreateListView.as_view() , name='blog-home'),
     path('admin/', admin.site.urls),
 
 ]
