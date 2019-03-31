@@ -1,7 +1,14 @@
 {% extends "journal/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
+<head>
+  {% load static %}
+  <script src="{% static 'journal/spiro.js' %}"></script>
+  <title>Site</title>
+</head>
+<body>
     <div class="content-section">
        <canvas id="spire"></canvas>
     </div>
+</body>
 {% endblock content %}
