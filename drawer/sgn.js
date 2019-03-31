@@ -27,7 +27,7 @@ var sgn = (function(settings) {
 
 	return {
 		load: load,
-		spot: spot,
+
 	}
 
 	//public functions
@@ -133,7 +133,7 @@ var sgn = (function(settings) {
 			o.innerHTML = settings.presets[c].name;
 			sel.appendChild(o);
 		}
-		settings.sidebarDiv.appendChild(sel)
+		settings.sidebarDiv.appendChild(sel);
 		presetEvent(settings.idNames.presets, "change");
 
 		e = document.createElement("DIV");
@@ -352,22 +352,6 @@ var sgn = (function(settings) {
 		};
 	}
 
-	function spot(d) {
-		var d = {
-			"a": "600",
-			"b": "600",
-			"sz": "600",
-			"canvasClass": "pad",
-			"closeFunction": "close",
-			"sr": "250",
-			"r1": "125h",
-			"pen": "125",
-
-
-
-		}
-
-	}
 
 	// buttons
 
@@ -779,7 +763,7 @@ var sgn = (function(settings) {
 		settings.types = [""];
 		settings.pitches = [1];
 		settings.drawPitches = [];
-		settings.spinPitches = []
+		settings.spinPitches = [];
 
 		var c = 1;
 		var thisId = settings.idNames.rotor + c;
@@ -1124,7 +1108,8 @@ var sgn = (function(settings) {
 			settings.curvePoints[1] && settings.draw && settings.i > settings.iterator &&
 			settings.curvePoints[1].x === settings.penStart.x &&
 			settings.curvePoints[1].y.toFixed(1) === settings.penStart.y.toFixed(1)
-		) {
+		) 
+		{
 			var nd = new Date().getTime() / 1000;
 			settings.timer = nd - settings.timer;
 			//console.log(settings.timer);
@@ -1140,7 +1125,7 @@ var sgn = (function(settings) {
 			return;
 		}
 
-		//button hs been toggled
+		//button has been toggled
 		if (!settings.draw) {
 			if (settings.circleReset) {
 				settings.circles = "show";
@@ -1352,7 +1337,7 @@ var sgn = (function(settings) {
 		drawCircles();
 
 	}
-
+	
 	function zoom(inOut) {
 
 		if(settings.zoomStack.length>1 && inOut==="in" && settings.zoomStack[0]<1) {
