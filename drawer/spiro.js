@@ -17,11 +17,14 @@ var spiro = (function (input) {
 	// calculates the next set of arc values and circle values
 	function setValues(){
 
-		//settings.types = [""];
 		input.pitches = [1];
 		input.drawPitches = [];
 		input.spinPitches = [];
 
+		if(frameCount % framePartition == 0){
+			input.colorIncrement++;
+			input.curveColor = input.colors[colorIncrement];
+		}
 		var c = 0;
 		
 		var thisRotor;
@@ -221,7 +224,7 @@ var spiro = (function (input) {
 	}
 	// populates the colors array based on the arrays within the sentences array
 	function fillColors(){
-		for(i = 0; i < sentences.length; i++){
+		for(i = 0; i < input.sentenceEmotions.length; i++){
 			prevAvg = [0, 0, 0];
 			wAvg = [0,0,0];
 			for(j = 0; j < input.sentenceEmotions[i].length; j++){
@@ -236,6 +239,7 @@ var spiro = (function (input) {
 			prevAvg = wAvg;
 			input.colors.push(wAvg);
 		}
+		framePartition = frameMax / input.sentenceEmotions.length;
 	}
 	// populates the radii array based on the emotions array.
 	function setRadii(){
@@ -271,8 +275,10 @@ var spiro = (function (input) {
 	},		
 	frameCount: 0,
 	frameMax: 100000,
+	framePartition: 0,
 	curvePoints: [],
 	curveColor: "",
+	colorIncrement: 0,
 	canvasID: "canvasID",
 	// array of arrays, emotion data for each sentence 
 	sentenceEmotions: [],
