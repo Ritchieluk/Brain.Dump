@@ -4,11 +4,15 @@ var spiro = (function (input) {
 		load: load
 	}
 	// 
-	function load(emotionValues, canvas){
-		emotions = emotionValues[0];
-		for (i= 1; i < emotionValues.length; i++)
-			sentences.push(emotionValues[i]);
-		canvasID = document.getElementById(canvas);
+	function load(jsonString, canvas){
+		var emotionValues = JSON.parse(jsonString);
+		input.emotions = emotionValues["Overall"]["emotion"];
+		input.sentiment = emotionValues["Overall"]["sentiment"];
+		for (i= 0; i < emotionValues["Sentences"]["emotion"].length; i++){
+			input.sentenceEmotions.push(emotionValues["Sentences"]["emotion"][i]);
+			input.sentenceSentiment.push(emotionValues["Sentences"]["sentiment"][i]);
+		}
+		input.canvasID = document.getElementById(canvas);
 	}
 	// calculates the next set of arc values and circle values
 	function setValues(){
@@ -77,8 +81,8 @@ var spiro = (function (input) {
 		var pen;
 
 		//clear circles canvas
-		var ctx = input.canvas.getContext("2d");
-		ctx.clearRect(0, 0, settings.canvasCircles.width, settings.canvasCircles.height);
+		var ctx = input.canvasID.getContext("2d");
+		//ctx.clearRect(0, 0, settings.canvasCircles.width, settings.canvasCircles.height);
 		
 
 		//start at the center
@@ -156,7 +160,7 @@ var spiro = (function (input) {
 	}
 	// draws a curve based on the next set of arc values
 	function drawCurve(){
-		var ctx = input.canvas.getContext("2d");
+		var ctx = input.canvasID.getContext("2d");
 		ctx.beginPath();
 		ctx.strokeStyle = input.curveColor;
 		ctx.lineWidth = input.penWidth;
@@ -219,24 +223,24 @@ var spiro = (function (input) {
 		for(i = 0; i < sentences.length; i++){
 			prevAvg = [0, 0, 0];
 			wAvg = [0,0,0];
-			for(j = 0; j < sentences[i].length; j++){
-				for (k = 0; k < emotionColors[j].length; k++)
-					wAvg[k] += sentences[i][j] * emotionColors[j][k];
+			for(j = 0; j < input.sentenceEmotions[i].length; j++){
+				for (k = 0; k < input.emotionColors[j].length; k++)
+					wAvg[k] += input.sentenceEmotions[i][j] * input.emotionColors[j][k];
 			}
 			if (i > 0){
 				for(j = 0; j < wAvg.length; j++){
-					wAvg[j] = (wAvg[j] + prevAvg[j]) * .5 * (sentiment[1] + sentiment[2]);
+					wAvg[j] = (wAvg[j] + prevAvg[j]) * .5 * (input.sentenceSentiment[[1] + input.sentenceSentiment[2]);
 				}
 			}
 			prevAvg = wAvg;
-			colors.push(wAvg);
+			input.colors.push(wAvg);
 		}
 	}
 	// populates the radii array based on the emotions array.
 	function setRadii(){
-		for(i = 0; i < emotions.length; i++){
-			radii[i] == 50*emotions[i];
-			radiiTypes[i].push("h");
+		for(i = 0; i < input.emotions.length; i++){
+			input.radii[i] == 50*input.emotions[i];
+			input.radiiTypes[i].push("h");
 		}
 	}
 	// calculates the next point on a circle given its center, radius, and next angle)
@@ -269,6 +273,7 @@ var spiro = (function (input) {
 	canvasID: "canvasID",
 	// array of arrays, emotion data for each sentence 
 	sentenceEmotions: [],
+	sentenceSentiment: [],
 	// array of emotion data for whole entry
 	emotions: [],
 	// array of radii for the circles
