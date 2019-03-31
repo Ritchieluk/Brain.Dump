@@ -17,11 +17,14 @@ var spiro = (function (input) {
 	// calculates the next set of arc values and circle values
 	function setValues(){
 
-		//settings.types = [""];
 		input.pitches = [1];
 		input.drawPitches = [];
 		input.spinPitches = [];
 
+		if(frameCount % framePartition == 0){
+			input.colorIncrement++;
+			input.curveColor = input.colors[colorIncrement];
+		}
 		var c = 0;
 		
 		var thisRotor;
@@ -173,9 +176,9 @@ var spiro = (function (input) {
 	function draw(){
 		//if we've cycled back to the beginning, then pause
 		if (
-			input.curvePoints[1] && input.incrementor > input.iterator &&
+			(input.curvePoints[1] && input.incrementor > input.iterator &&
 			input.curvePoints[1].x === input.penStart.x &&
-			input.curvePoints[1].y.toFixed(1) === input.penStart.y.toFixed(1)
+			input.curvePoints[1].y.toFixed(1) === input.penStart.y.toFixed(1))||frameCount > frameMax
 		) 
 		{
 			var nd = new Date().getTime() / 1000;
@@ -193,16 +196,16 @@ var spiro = (function (input) {
 		while (c < speed) {
 			//if we've cycled back to the beginning, then pause
 			if (
-				input.curvePoints[1] && input.incrementor > input.iterator &&
+				(input.curvePoints[1] && input.incrementor > input.iterator &&
 				input.curvePoints[1].x === input.penStart.x &&
-				input.curvePoints[1].y.toFixed(1) === input.penStart.y.toFixed(1)
+				input.curvePoints[1].y.toFixed(1) === input.penStart.y.toFixed(1))||frameCount > frameMax
 			) {
 				var nd = new Date().getTime() / 1000;
 				input.timer = nd - input.timer;
 				
 				break;
 			}
-			
+			input.frameCount++;
 			drawCircles();
 			drawCurve();
 			//if we've done 1000 iterations, then call frame here, so there's some initial feedback
@@ -211,6 +214,7 @@ var spiro = (function (input) {
 		}
 
 		//draw
+		input.frameCount++;
 		drawCircles();
 		drawCurve();
 
@@ -220,7 +224,7 @@ var spiro = (function (input) {
 	}
 	// populates the colors array based on the arrays within the sentences array
 	function fillColors(){
-		for(i = 0; i < sentences.length; i++){
+		for(i = 0; i < input.sentenceEmotions.length; i++){
 			prevAvg = [0, 0, 0];
 			wAvg = [0,0,0];
 			for(j = 0; j < input.sentenceEmotions[i].length; j++){
@@ -229,12 +233,13 @@ var spiro = (function (input) {
 			}
 			if (i > 0){
 				for(j = 0; j < wAvg.length; j++){
-					wAvg[j] = (wAvg[j] + prevAvg[j]) * .5 * (input.sentenceSentiment[[1] + input.sentenceSentiment[2]);
+					wAvg[j] = (wAvg[j] + prevAvg[j]) * .5 * (input.sentenceSentiment[1] + input.sentenceSentiment[2]);
 				}
 			}
 			prevAvg = wAvg;
 			input.colors.push(wAvg);
 		}
+		framePartition = frameMax / input.sentenceEmotions.length;
 	}
 	// populates the radii array based on the emotions array.
 	function setRadii(){
@@ -268,8 +273,12 @@ var spiro = (function (input) {
 		x: 0,
 		y: 0
 	},		
+	frameCount: 0,
+	frameMax: 100000,
+	framePartition: 0,
 	curvePoints: [],
 	curveColor: "",
+	colorIncrement: 0,
 	canvasID: "canvasID",
 	// array of arrays, emotion data for each sentence 
 	sentenceEmotions: [],
@@ -288,12 +297,12 @@ var spiro = (function (input) {
 	speed: 200,
 	penWidth: .1,
 	emotionColors: [
-		fear: [1, 1, 0],
-		anger: [1,0,0],
-		bored: [0, 1, 1],
-		sad: [0, 0, 1],
-		happy: [1, 0, 1],
-		excited: [0, 1, 0]
+		[1, 1, 0],
+		[1,0,0],
+		[0, 1, 1],
+		[0, 0, 1],
+		[1, 0, 1],
+		[0, 1, 0],
 	],	
 	sentiment: [0, 0, 0]
 	}
