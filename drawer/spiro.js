@@ -5,7 +5,7 @@ var spiro = (function (input) {
 	}
 	// 
 	function load(dict, canvas){
-		var emotionValues = dict;
+		var emotionValues = JSON.parse(unescape(dict));
 		input.emotions = emotionValues["Overall"]["emotion"];
 		input.sentiment = emotionValues["Overall"]["sentiment"];
 		for (i= 0; i < emotionValues["Sentences"]["emotion"].length; i++){
@@ -13,6 +13,7 @@ var spiro = (function (input) {
 			input.sentenceSentiment.push(emotionValues["Sentences"]["sentiment"][i]);
 		}
 		input.canvasID = document.getElementById(canvas);
+		requestAnimationFrame(draw);
 	}
 	// calculates the next set of arc values and circle values
 	function setValues(){
