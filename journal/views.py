@@ -4,6 +4,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Post 
 from django.views.generic import ListView, CreateView
+from django.shortcuts import redirect 
+from PDapi import PD_init_testing
 
 def home(request):
     context = {
@@ -15,9 +17,10 @@ class CreateListView(CreateView):
     model = Post
     template_name ='journal/home.html'
     fields = ['title', 'text']
-    # def form_valid(self,form):
-    #     form.instance.author = self.user
-    #     return 
+    def form_valid(self,form):
+        return redirect('draw', PD_init_testing(form.instance.text))
+        #form.instance.author = self.user
+        #return super().form_valid(form)
 
 
 def handler404(request, *args, **argv):

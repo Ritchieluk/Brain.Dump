@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
-
+from django.shortcuts import redirect 
+from PDapi import PD_init_testing
 
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -16,3 +17,5 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+    def get_absoluter_url(self):
+        return redirect('draw', PD_init_testing(self.text))
