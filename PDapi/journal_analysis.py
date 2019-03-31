@@ -3,7 +3,7 @@ import nltk
 import json
 from nltk.tokenize import sent_tokenize, word_tokenize
 
-paralleldots.set_api_key("AfHOCgHb46FanBBmFWRsYgiZVdkn9jAES69sGXiQ6dA")
+paralleldots.set_api_key("xJ6BAROxIb1svkORCoPACjRmuGAB0kKtkf9pQlnf4Z8")
 
 # Old Testing Data
 
@@ -32,18 +32,25 @@ def analyze_entry(raw_text):
     sentiment_overall = paralleldots.sentiment(raw_text)
     emotions_sentences = paralleldots.batch_emotion(text_sentences)
     sentiment_sentences = paralleldots.batch_sentiment(text_sentences)
+    #print("type of emotions_overall: ", type(emotions_overall))
     data = {}
-    data['Overall'] = []
-    data['Overall'].append(emotions_overall)
-    data['Overall'].append(sentiment_overall)
-    data['Sentences'] = []
-    data['Sentences'].append(emotions_sentences)
-    data['Sentences'].append(sentiment_sentences)
+    data.update(emotions_overall)
+    data.update(sentiment_overall)
+    data.update(emotions_sentences)
+    data.update(sentiment_sentences)
+    #print("type of data: ", type(data))
+    data = json.dumps(data)
+    #print("type of data: ",type(data))
+    # data['Overall'].append(emotions_overall)
+    # data['Overall'].append(sentiment_overall)
+    # data['Sentences'] = []
+    # data['Sentences'].append(emotions_sentences)
+    # data['Sentences'].append(sentiment_sentences)
     return data
 
 # check to make sure the json holds the right data
 # ret = analyze_entry(text)
 # print("Emotions Overall: ", ret['Overall'])
-
+# print(analyze_entry(text))
 
 
