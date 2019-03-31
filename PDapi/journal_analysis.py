@@ -3,7 +3,7 @@ import nltk
 import json
 from nltk.tokenize import sent_tokenize, word_tokenize
 
-paralleldots.set_api_key("xJ6BAROxIb1svkORCoPACjRmuGAB0kKtkf9pQlnf4Z8")
+paralleldots.set_api_key("9efcFdtiRA40KZomNNZ9BomU7OGQLVADN5hGSFWZUcg")
 
 # Old Testing Data
 
@@ -33,11 +33,13 @@ def analyze_entry(raw_text):
     emotions_sentences = paralleldots.batch_emotion(text_sentences)
     sentiment_sentences = paralleldots.batch_sentiment(text_sentences)
     #print("type of emotions_overall: ", type(emotions_overall))
-    data = {}
-    data.update(emotions_overall)
-    data.update(sentiment_overall)
-    data.update(emotions_sentences)
-    data.update(sentiment_sentences)
+    overall = {}
+    overall.update(emotions_overall)
+    overall.update(sentiment_overall)
+    sentences = {}
+    sentences.update(emotions_sentences)
+    sentences.update(sentiment_sentences)
+    data = {'Overall' : overall, 'Sentences':sentences}
     #print("type of data: ", type(data))
     data = json.dumps(data)
     #print("type of data: ",type(data))
@@ -54,3 +56,4 @@ def analyze_entry(raw_text):
 # print(analyze_entry(text))
 
 
+# print(analyze_entry(text))
