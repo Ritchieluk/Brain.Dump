@@ -60,7 +60,7 @@ ROOT_URLCONF = 'braindump.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': []
+        'DIRS': ['BASE_DIR/why']
         ,
         'APP_DIRS': True,
         'OPTIONS': {

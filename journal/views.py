@@ -1,11 +1,13 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect, reverse 
+from django.http import HttpResponse,HttpResponseRedirect
 from .models import Post 
 from django.views.generic import ListView, CreateView
-from django.shortcuts import redirect 
-from PDapi import PD_init_testing
+import json
+
+from PDapi.journal_analysis import analyze_entry
+
 
 def home(request):
     context = {
@@ -13,12 +15,15 @@ def home(request):
     }
     return render(request, 'journal/post_form.html',context)
 
+def draw(request,*args,**kwargs):
+    return render(request,'journal/draw.html')
+
 class CreateListView(CreateView):
     model = Post
     template_name ='journal/home.html'
     fields = ['title', 'text']
     def form_valid(self,form):
-        return redirect('draw', PD_init_testing(form.instance.text))
+        return HttpResponseRedirect(reverse('draw',json.load(analyze_entry(form.instance.text))))
         #form.instance.author = self.user
         #return super().form_valid(form)
 
