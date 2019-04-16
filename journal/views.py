@@ -5,7 +5,6 @@ from django.http import HttpResponse,HttpResponseRedirect
 from .models import Post 
 from django.views.generic import ListView, CreateView
 import json
-
 from PDapi.journal_analysis import analyze_entry
 
 
@@ -17,6 +16,12 @@ def home(request):
 
 def draw(request,string):
     return render(request,'journal/draw.html',string)
+
+def testDraw(request):
+    with open("drawer/test_jsons/example_0.json") as testfile:
+        data = json.load(testfile)
+    context = {'colors': json.dumps(data)}
+    return render(None, 'journal/draw.html', context)
 
 class CreateListView(CreateView):
     model = Post
