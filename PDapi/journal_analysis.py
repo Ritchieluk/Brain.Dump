@@ -28,7 +28,7 @@ paralleldots.set_api_key("EguUp9GKNVXAo92zUbmc1jnGbYP8W3A2GSX8UFw0kRQ")
 def analyze_entry(raw_text):
     sent_detector = nltk.data.load('tokenizers/punkt/english.pickle')
     text_sentences = sent_detector.tokenize(raw_text.strip())
-    emotions_overall=paralleldots.emotion(raw_text)
+    emotions_overall= paralleldots.emotion(raw_text)
     sentiment_overall = paralleldots.sentiment(raw_text)
     emotions_sentences = paralleldots.batch_emotion(text_sentences)
     sentiment_sentences = paralleldots.batch_sentiment(text_sentences)
@@ -54,6 +54,6 @@ def analyze_entry(raw_text):
 # check to make sure the json holds the right data
 # ret = analyze_entry(text)
 # print("Emotions Overall: ", ret['Overall'])
-# print(analyze_entry(text))
+# print(ret)
 
-# print(analyze_entry(text))
+# print(ret)
