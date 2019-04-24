@@ -3,7 +3,6 @@ A Sentiment Analysis tool made to translate journal entries into meaningful repr
 
 By:
 ___
-- John Howes
 - Morgan Martin
 - Sam Oates
 - Luke Ritchie
