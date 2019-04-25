@@ -3,7 +3,7 @@ import nltk
 import json
 from nltk.tokenize import sent_tokenize, word_tokenize
 
-paralleldots.set_api_key("A3t0cQVDYKeeas7gntUVTKYM0kvXDaNNCQhPF9bJRfE")
+paralleldots.set_api_key("uMiH4j8JafqX16goSjZuvI93PPMaBqQq2N8EBPzrMvQ")
 
 # Old Testing Data
 
