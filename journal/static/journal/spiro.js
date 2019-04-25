@@ -4,39 +4,63 @@ var spiro = (function (input) {
 		load: load
 	}
 	//
-	function decodeHtml(html) {
-		var txt = document.createElement("textarea");
-		txt.innerHTML = html;
-		return txt.value;
+
+	function htmlDecode(input)
+	{
+  		var doc = new DOMParser().parseFromString(input, "text/html");
+  		return doc.documentElement.textContent;
 	}
+
 	function load(dict, canvas){
-
-		var emotionValues = JSON.parse(dict);
+		var emotionValues = htmlDecode(dict);
+		emotionValues = JSON.parse(emotionValues);
 		input.emotions = emotionValues["Overall"]["emotion"];
+		console.log("Overall Emotions: ", input.emotions);
 		input.sentiment = emotionValues["Overall"]["sentiment"];
+		console.log("Overall Sentiment: ", input.sentiment);
+		input.sentenceEmotions = emotionValues["Sentences"]["emotion"];
+		input.sentenceSentiment = emotionValues["Sentences"]["sentiment"];
+		createEmotions();
+		/*
 		for (i= 0; i < emotionValues["Sentences"]["emotion"].length; i++){
-			input.sentenceEmotions.push(emotionValues["Sentences"]["emotion"][i]);
+			input.sentenceEmotions.push(emotionValues["Sentences"]["emotion"][i]+emotionValues["Sentences"]["sentiment"][i]);
 			input.sentenceSentiment.push(emotionValues["Sentences"]["sentiment"][i]);
+		}*/
+		console.log("Sentence Emotions: ", input.sentenceEmotions);
+		input.canvas = document.getElementById(canvas);
+		input.canvasWidth = input.canvas.width;
+		input.canvasHeight = input.canvas.height;
+		console.log("Width: ", input.canvasWidth, " Height: ", input.canvasHeight);
+		input.origin.x = input.canvasWidth/2;
+		input.origin.y = input.canvasHeight/2;
+		if(input.canvasWidth >= input.canvasHeight){
+			input.spiroDiameter = input.canvasHeight;
 		}
-		input.canvasID = document.getElementById(canvas);
-
+		else{
+			input.spiroDiameter = input.canvasWidth;
+		}
+		console.log(input.spiroDiameter);
+		
+		/*
+		input.canvasDiv = document.getElementById(canvas);
+		input.canvas = document.createElement("canvas");
+		input.canvas.id = input.canvasID;
+		input.canvasDiv.appendChild(input.canvas);
+		*/
 		fillColors();
 		setRadii();
 		setValues();
+		drawCircles();
 		requestAnimationFrame(draw);
 	}
 	// calculates the next set of arc values and circle values
 	function setValues(){
-
 		input.pitches = [1];
 		input.drawPitches = [];
 		input.spinPitches = [];
-
-		if(input.frameCount % framePartition == 0){
-			input.colorIncrement++;
-			input.curveColor = input.colors[input.colorIncrement];
-		}
-		var c = 0;
+		
+		input.curveColor = input.colors[input.colorIncrement];
+		var c = 1;
 		
 		var thisRotor;
 		var thisType;
@@ -46,43 +70,42 @@ var spiro = (function (input) {
 			thisRotor = input.radii[c];
 
 			if (input.radiiTypes[c] == "h") {
-				if (c > 0) {
-					input.drawPitches.push(input.spinPitches[c - 1]);
-					input.spinPitches.push((input.radii[c] / thisRotor) - 1);
+				if (c > 1) {
+					input.drawPitches.push(input.spinPitches[c - 2]);
+					input.spinPitches.push((input.radii[c-1] / thisRotor) - 1);
 					if (input.radiiTypes[c - 1] === "h") {
-						input.directions.push(input.directions[c]);
+						input.directions.push(input.directions[c-1]);
 					} else {
-						input.directions.push(input.directions[c] * -1);
+						input.directions.push(input.directions[c-1] * -1);
 					}
 				} else {
 					input.directions = [1, 1];
 					input.drawPitches.push(1);
-					input.spinPitches.push((input.radii[c] / thisRotor) - 1);
+					input.spinPitches.push((input.radii[c-1] / thisRotor) - 1);
 				}
 			} else {
-				if (c > 0) {
-					input.drawPitches.push(input.spinPitches[c - 1]);
-					input.spinPitches.push((input.radii[c] / thisRotor) + 1);
-					if (input.radiiTypes[c] === "h") {
-						input.directions.push(input.directions[c]);
+				if (c > 1){
+					input.drawPitches.push(input.spinPitches[c - 2]);
+					input.spinPitches.push((input.radii[c-1] / thisRotor) + 1);
+					if (input.radiiTypes[c-1] === "h") {
+						input.directions.push(input.directions[c-1]);
 					} else(
-						input.directions.push(input.directions[c] * -1)
+						input.directions.push(input.directions[c-1] * -1)
 					)
 				} else {
 					input.directions = [1, 1];
 					input.drawPitches.push(1);
-					input.spinPitches.push((input.radii[c] / thisRotor) + 1);
+					input.spinPitches.push((input.radii[c-1] / thisRotor) + 1);
 
 				}
 			}
 			c++;
 		}
-
 		//create url string for this config
 	}
 	// 
 	function drawCircles(){
-		var c = 0;
+		var c = 1;
 		var i = input.incrementor;
 
 		var thisRad = 0;
@@ -93,10 +116,9 @@ var spiro = (function (input) {
 		var prevSpinPitch = 0;
 		var prevDrawPitch = 0;
 		var pen;
-		var penPitch = 0;
 
 		//clear circles canvas
-		var ctx = input.canvasID.getContext("2d");
+		var ctx = input.canvas.getContext("2d");
 		//ctx.clearRect(0, 0, settings.canvasCircles.width, settings.canvasCircles.height);
 		
 
@@ -105,16 +127,21 @@ var spiro = (function (input) {
 			"x": input.origin.x,
 			"y": input.origin.y,
 		};
-
+		if(input.frameCount % input.framePartition < 1){
+			if(input.frameCount >= input.framePartition){
+				console.log("Changing color from: ", input.colors[input.colorIncrement], " to: ", input.colors[input.colorIncrement+1]);
+				input.colorIncrement++;
+				input.curveColor = input.colors[input.colorIncrement];
+			}
+		}
 		//draw rotor Circles
 		while (c < input.radii.length) {
 
 
 			//set radii, applying zoom
 			thisRad = Number(input.radii[c]);
-			if(c>0)
-				prevRad = Number(input.radii[c - 1]);
-			if (input.radiiTypes[c] === "h") {
+			prevRad = Number(input.radii[c - 1]);
+			if (input.radiiTypes[c] == "h") {
 				//hypitrochoid: circle inside
 				centerRad = prevRad - thisRad;
 			} else {
@@ -123,10 +150,10 @@ var spiro = (function (input) {
 			}
 
 			//pitches are cumulative, so extract previous from array.
-			if (c > 0) {
-				prevPitch = prevPitch + input.pitches[c - 1];
-				prevSpinPitch = prevSpinPitch + input.spinPitches[c - 1];
-				prevDrawPitch = prevDrawPitch + input.drawPitches[c - 1];
+			if (c > 1) {
+				prevPitch = prevPitch + input.pitches[c - 2];
+				prevSpinPitch = prevSpinPitch + input.spinPitches[c - 2];
+				prevDrawPitch = prevDrawPitch + input.drawPitches[c - 2];
 			} else {
 				prevPitch = 0;
 				prevSpinPitch = 0;
@@ -137,20 +164,20 @@ var spiro = (function (input) {
 			var mult = input.directions[c];
 
 			//set draw pitch
-			var thisPitch = (input.drawPitches[c] + prevDrawPitch) * mult;
+			var thisPitch = (input.drawPitches[c-1] + prevDrawPitch) * mult;
 
 			//set pen pitch
 			//physics here is subjective
-			var os = (c > 0) ? 1 : 0;
+			var os = (c > 1) ? 1 : 0;
 			if (input.radiiTypes[c] === "h") {
-				var penPitch = (input.spinPitches[c] + prevSpinPitch) * mult * -1;
+				var penPitch = (input.spinPitches[c-1] + prevSpinPitch) * mult * -1;
 			} else {
-				var penPitch = (input.spinPitches[c] + prevSpinPitch) * mult;
+				var penPitch = (input.spinPitches[c-1] + prevSpinPitch) * mult;
 			}
 
 			//draw this rotor
 			var pt = circlePoint(pt.x, pt.y, centerRad, i * thisPitch);
-
+			//console.log("pt: " + pt.x + " " + pt.y);
 			//draw Pen
 			//pen pitch set in last circle iteration
 			var penPt = circlePoint(pt.x, pt.y, thisRad, i * penPitch);
@@ -160,8 +187,9 @@ var spiro = (function (input) {
 
 		//draw Pen
 		//pen pitch set in last circle iteration
+		
 		var penPt = circlePoint(pt.x, pt.y, input.penWidth, i * penPitch);
-
+		//console.log("penPT:" + penPt.x + penPt.y + " at Increment: " + input.frameCount);
 		//mark our starting point
 		if (input.incrementor === 0) {
 			input.penStart = penPt;
@@ -176,7 +204,7 @@ var spiro = (function (input) {
 	}
 	// draws a curve based on the next set of arc values
 	function drawCurve(){
-		var ctx = input.canvasID.getContext("2d");
+		var ctx = input.canvas.getContext("2d");
 		ctx.beginPath();
 		ctx.strokeStyle = input.curveColor;
 		ctx.lineWidth = input.penWidth;
@@ -197,7 +225,8 @@ var spiro = (function (input) {
 			var nd = new Date().getTime() / 1000;
 			input.timer = nd - input.timer;
 			//console.log(settings.timer);
-			
+			input.incrementor = 0;
+			console.log("Finished, at frame: ", input.frameCount);
 			return;
 		}
 
@@ -215,7 +244,7 @@ var spiro = (function (input) {
 			) {
 				var nd = new Date().getTime() / 1000;
 				input.timer = nd - input.timer;
-				
+				input.incrementor = 0;
 				break;
 			}
 			input.frameCount++;
@@ -237,60 +266,92 @@ var spiro = (function (input) {
 	}
 	// populates the colors array based on the arrays within the sentences array
 	function fillColors(){
-		for(i = 0; i < input.sentenceEmotions.length; i++){
-			prevAvg = [0, 0, 0];
+		input.sentenceEmotions.forEach(function(sentence){
 			wAvg = [0,0,0];
-			for(j = 0; j < input.sentenceEmotions[i].length; j++){
-				for (k = 0; k < input.emotionColors[j].length; k++)
-					wAvg[k] += input.sentenceEmotions[i][j] * input.emotionColors[j][k];
-			}
-			if (i > 0){
-				for(j = 0; j < wAvg.length; j++){
-					wAvg[j] = (wAvg[j] + prevAvg[j]) * .5 * (input.sentenceSentiment[1] + input.sentenceSentiment[2]);
+			emotionTrack = 0;
+			sentence.forEach(function(emotion){
+				for (i = 0; i < 3; i++){
+					wAvg[i] += emotion * input.emotionColors[emotionTrack][i];
 				}
-			}
-			prevAvg = wAvg;
-			input.colors.push(wAvg);
-		}
-		framePartition = input.frameMax / input.sentenceEmotions.length;
+				emotionTrack++;
+			});
+			for (i = 0; i < 3; i++)
+				wAvg[i] = parseInt(.5*wAvg[i]);
+			var hex = "#" + componentToHex(wAvg[0]) + componentToHex(wAvg[1]) + componentToHex(wAvg[2]);
+			console.log(hex);
+			input.colors.push(hex);
+		});
+		console.log("Colors: ", input.colors);
+		
+		input.framePartition = input.frameMax / input.sentenceEmotions.length;
+		console.log("framePartition: ", input.framePartition);
 	}
 	// populates the radii array based on the emotions array.
 	function setRadii(){
-		for(i = 0; i < input.emotions.length; i++){
-			input.radii[i] == 50*input.emotions[i];
-			input.radiiTypes[i].push("h");
+		i = 0;
+		for(var key in input.emotions){
+			input.radii[i] = input.spiroDiameter/2*input.emotions[key];
+			input.radiiTypes[i] = "h";
+			i++;
 		}
+		console.log(input.radii);
 	}
+	function componentToHex(c) {
+		var hex = c.toString(16);
+		return hex.length == 1 ? "0" + hex : hex;
+	}
+	
 	// calculates the next point on a circle given its center, radius, and next angle)
 	function circlePoint(a, b, r, angle){
 		var rad = angle * (Math.PI / 180);
-		var y = r * Math.sin(rad);
-		var x = r * Math.cos(rad);
-		x = a + x;
-		y = b - y;
-		return {
-			"x": x,
-			"y": y
-		}
+		var yCor = r * Math.sin(rad);
+		var xCor = r * Math.cos(rad);
+		xCor = a + xCor;
+		yCor = b - yCor;
+		//console.log("xCor: " + xCor);
+		var coor = {
+			x: xCor,
+			y: yCor
+		};
+		//console.log("coor: " + coor.x + " " + coor.y);
+		return coor;
 	}
 	// redoes the animation given the same information
+	function createEmotions(){
+		var emotionsArray = [];
+		for (var key in input.sentenceEmotions){
+			var tempArray = [];
+			for (var emotion in input.sentenceEmotions[key]){
+				tempArray.push(input.sentenceEmotions[key][emotion])
+			}
+			emotionsArray.push(tempArray);
+		}
+		i = 0;
+		for (var sentence in input.sentenceSentiment){
+			for (var sentiment in input.sentenceSentiment[sentence]){
+				emotionsArray[i].push(input.sentenceSentiment[sentence][sentiment]);
+			}
+			i++;
+		}
+		input.sentenceEmotions = emotionsArray;
+	}
 	function redraw(){
 		
 	}
 })(
 // input class
 	{
-	incrementor: 1,
+	incrementor: 0,
 	iterator: .25,
 	origin: {
 		x: 0,
 		y: 0
 	},		
 	frameCount: 0,
-	frameMax: 100000,
+	frameMax: 200000,
 	framePartition: 0,
 	curvePoints: [],
-	curveColor: "",
+	curveColor: "#0000FF",
 	colorIncrement: 0,
 	canvasID: "canvasID",
 	// array of arrays, emotion data for each sentence 
@@ -308,16 +369,21 @@ var spiro = (function (input) {
 	// an array of arc values, previous and current. Always draw previous to current
 	arcValues: [],
 	speed: 200,
-	penWidth: .1,
+	penWidth: .5,
 	emotionColors: [
-		[1, 1, 0],
-		[1,0,0],
-		[0, 1, 1],
-		[0, 0, 1],
-		[1, 0, 1],
-		[0, 1, 0],
+		[255, 0, 0],  // angry
+		[255,255,0],	// happy
+		[0, 0, 255],	// sad
+		[0, 255, 0],	// excited
+		[0, 255, 255],	// bored
+		[255, 0, 255],	// fear
+		[0, 0, 0],		// negative
+		[60, 60, 60],	// neutral
+		[255,255,255]		// positive
 	],	
-	sentiment: [0, 0, 0]
+	sentiment: [
+	
+	]
 	}
 );
 	

@@ -19,8 +19,9 @@ def draw(request,string):
 
 def testDraw(request):
     with open("drawer/test_jsons/example_0.json") as testfile:
-        data = json.load(testfile)
-    context = {'colors': json.dumps(data)}
+        data = json.loads(testfile)
+    testfile.close()
+    context = {'colors': json.dumps(analyze_entry(request))}
     return render(None, 'journal/draw.html', context)
 
 class CreateListView(CreateView):
