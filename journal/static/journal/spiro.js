@@ -19,7 +19,9 @@ var spiro = (function (input) {
 		input.sentiment = emotionValues["Overall"]["sentiment"];
 		console.log("Overall Sentiment: ", input.sentiment);
 		input.sentenceEmotions = emotionValues["Sentences"]["emotion"];
+		console.log("Sentence Emotions: ", input.sentenceEmotions);
 		input.sentenceSentiment = emotionValues["Sentences"]["sentiment"];
+		console.log("Sentence Sentiments: ", input.sentenceSentiment);
 		createEmotions();
 		/*
 		for (i= 0; i < emotionValues["Sentences"]["emotion"].length; i++){
