@@ -1,0 +1,15 @@
+{% extends "journal/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    {% load staticfiles %}
+        <h1>Projects</h1>
+        <ul>
+        {% for projects in project.get_queryset %}
+        in for loop
+            <!-- <li><a href="{% url 'projects:detail' projects.id %}">{{ projects.name }}</a></li> -->
+            <li><a href="#">Test</a></li>
+        {% endfor %}
+
+</ul>
+end of list
+{% endblock content %}
