@@ -3,9 +3,14 @@ var spiro = (function (input) {
 	return {
 		load: load
 	}
-	//  
+	function htmlDecode(input)
+	{
+  		var doc = new DOMParser().parseFromString(input, "text/html");
+  		return doc.documentElement.textContent;
+	}
+
 	function load(dict, canvas){
-		var emotionValues = dict;
+		var emotionValues = htmlDecode(dict);
 		input.emotions = emotionValues["Overall"]["emotion"];
 		console.log("Overall Emotions: ", input.emotions);
 		input.sentiment = emotionValues["Overall"]["sentiment"];
