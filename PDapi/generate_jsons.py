@@ -3,7 +3,7 @@ import nltk
 import json
 from nltk.tokenize import sent_tokenize, word_tokenize
 
-paralleldots.set_api_key("145LyOQkcRHeFghoaseN5dHYqb6dTdNOLsQ0ZW8IBSY")
+paralleldots.set_api_key("a7RV80hn6h7p1ZeDr5kd25amcQBRutrLs2sP5MlSzJQ")
 
 test = [
     """I went to an Ivey league university in Ontario Canada right after high school. My marks weren't great but they were good enough to squeeze me in. I spent most of my time in University partying rather than studying but still managed to pass all of my first year classes. In my second year I skipped a lot of classes and was very lazy with the course work. My marks were terrible and I failed a couple of my courses. In my third year about half way through I dropped out and got a job landscaping.
@@ -88,6 +88,13 @@ That's enough of her. I'm guessing tomorrow, my body will be feeling the love th
 """
 ]
 
+mini_test = [
+    """I didn't want to wake up today. I just wanted to sleep or die. Living is hell. God please take me away""",
+    """I'm getting married today. This will be the best day of my entire life and I can't wait to see what else is yet to come.""",
+    """My dog died. I am severely depressed. I will be evicted soon without anywhere to go. My insides are pure sadness.""",
+    """I am so bored with my life. Existence is dull. All I want is some kind of stimulus."""
+]
+
 def analyze_entry(raw_text):
     sent_detector = nltk.data.load('tokenizers/punkt/english.pickle')
     text_sentences = sent_detector.tokenize(raw_text.strip())
@@ -115,12 +122,13 @@ def analyze_entry(raw_text):
     return data
 
 # check to make sure the json holds the right data
-for i in range(2,3):
+for i in range(3,len(mini_test)):
     # print(test[i])
-    ret = analyze_entry(test[i])
+    # ret = analyze_entry(test[i])
+    ret = analyze_entry(mini_test[i])
     # # # print("Emotions Overall: ", ret['Overall'])
     # print(ret)
-    with open('april_25_example_' + str(i) + '.json', 'w') as fp:
+    with open('april_26_extreme_example_' + str(i) + '.json', 'w') as fp:
         json.dump(ret, fp)
     #
     # # print(analyze_entry(text))
