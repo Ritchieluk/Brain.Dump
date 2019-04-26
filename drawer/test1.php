@@ -16,7 +16,7 @@ function start_html() {
 
     
     <script type = "text/javascript">
-    $.getJSON("example_2.json", function(json){
+    $.getJSON("example_0.json", function(json){
         spiro.load(json, "canvasPen");
     });
     </script>
