@@ -3,7 +3,7 @@ import nltk
 import json
 from nltk.tokenize import sent_tokenize, word_tokenize
 
-paralleldots.set_api_key("a7RV80hn6h7p1ZeDr5kd25amcQBRutrLs2sP5MlSzJQ")
+#paralleldots.set_api_key("a7RV80hn6h7p1ZeDr5kd25amcQBRutrLs2sP5MlSzJQ")
 
 test = [
     """I went to an Ivey league university in Ontario Canada right after high school. My marks weren't great but they were good enough to squeeze me in. I spent most of my time in University partying rather than studying but still managed to pass all of my first year classes. In my second year I skipped a lot of classes and was very lazy with the course work. My marks were terrible and I failed a couple of my courses. In my third year about half way through I dropped out and got a job landscaping.
@@ -95,6 +95,18 @@ mini_test = [
     """I am so bored with my life. Existence is dull. All I want is some kind of stimulus."""
 ]
 
+api_keys = [
+    """Kak9GBolj6jusObeaQUmw6V7c1i9VdEEC6YUI5HDmSw""",
+    """wOqphyVsJ6RDKmzFtjbSGiTK3h1TkhmgfzDOa8mCuQE""",
+    """paVFUgW9JtjaEA3dIt453FNScaw9hhCs7fF7CajkeCM"""
+]
+
+symp_full = """I need to write an example journal for the symposium. Gotta be honest, that makes me anxious. If I had to guess, the affect values for this piece will be anxiety-caused fear. I'm upset I'm not watching Avengers Endgame, but happy because this project is a passion of mine. If anyone spoils the movie for I will be thoroughly angry. Only 3 more days of class is causing my anticipation for the summer to rise. Paris is going to be so much fun! I'm disappointed we won't be singing in Notre Dame, but nevertheless I know it will be a memorable trip. Okay I think this is a sufficient length. I wonder if anyone will be able to read this far? Maybe. Hope this works. I'd be sad if it didn't."""
+symp_test = [
+        """I need to write an example journal for the symposium. Gotta be honest, that makes me anxious. If I had to guess, the affect values for this piece will be anxiety-caused fear. I'm upset I'm not watching Avengers Endgame, but happy because this project is a passion of mine.""",
+        """If anyone spoils the movie for I will be thoroughly angry. Only 3 more days of class is causing my anticipation for the summer to rise. Paris is going to be so much fun! I'm disappointed we won't be singing in Notre Dame, but nevertheless I know it will be a memorable trip.""",
+        """Okay I think this is a sufficient length. I wonder if anyone will be able to read this far? Maybe. Hope this works. I'd be sad if it didn't."""
+    ]
 def analyze_entry(raw_text):
     sent_detector = nltk.data.load('tokenizers/punkt/english.pickle')
     text_sentences = sent_detector.tokenize(raw_text.strip())
@@ -122,13 +134,30 @@ def analyze_entry(raw_text):
     return data
 
 # check to make sure the json holds the right data
-for i in range(3,len(mini_test)):
-    # print(test[i])
-    # ret = analyze_entry(test[i])
-    ret = analyze_entry(mini_test[i])
-    # # # print("Emotions Overall: ", ret['Overall'])
-    # print(ret)
-    with open('april_26_extreme_example_' + str(i) + '.json', 'w') as fp:
-        json.dump(ret, fp)
+# for i in range(3,len(mini_test)):
+#     # print(test[i])
+#     # ret = analyze_entry(test[i])
+#     ret = analyze_entry(mini_test[i])
+#     # # # print("Emotions Overall: ", ret['Overall'])
+#     # print(ret)
+#     with open('april_26_extreme_example_' + str(i) + '.json', 'w') as fp:
+#         json.dump(ret, fp)
     #
     # # print(analyze_entry(text))
+
+# for i in range(0,3):
+#     paralleldots.set_api_key(api_keys[i])
+#     ret = analyze_entry(symp_test[i])
+#     with open('april_26_symposium_' + str(i) + '.json', 'w') as fp:
+#         json.dump(ret, fp)
+
+paralleldots.set_api_key(api_keys[0])
+sent_detector = nltk.data.load('tokenizers/punkt/english.pickle')
+text_sentences = sent_detector.tokenize(symp_full.strip())
+emotions_overall = paralleldots.emotion(symp_full)
+sentiment_overall = paralleldots.sentiment(symp_full)
+overall = {}
+overall.update(emotions_overall)
+overall.update(sentiment_overall)
+with open('april_26_symposium_overall.json','w') as fp:
+    json.dump(overall,fp)

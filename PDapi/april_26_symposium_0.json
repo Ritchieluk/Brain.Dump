@@ -1,0 +1,76 @@
+{
+  "Overall": {
+    "emotion": {
+      "Angry": 0.066552529,
+      "Happy": 0.0936079765,
+      "Sad": 0.3236562974,
+      "Excited": 0.0913498588,
+      "Bored": 0.0258678146,
+      "Fear": 0.3989655238
+    },
+    "sentiment": {
+      "negative": 0.448,
+      "neutral": 0.292,
+      "positive": 0.261
+    }
+  },
+  "Sentences": {
+    "emotion": [
+      {
+        "Angry": 0.1591776752,
+        "Happy": 0.065244711,
+        "Sad": 0.2817516399,
+        "Excited": 0.0821615696,
+        "Bored": 0.1022862951,
+        "Fear": 0.3093781092
+      },
+      {
+        "Angry": 0.0424182077,
+        "Happy": 0.1001239247,
+        "Sad": 0.2415491193,
+        "Excited": 0.0587846294,
+        "Bored": 0,
+        "Fear": 0.5571241189
+      },
+      {
+        "Angry": 0.1491973238,
+        "Happy": 0.1953742339,
+        "Sad": 0.2438272955,
+        "Excited": 0.1898784442,
+        "Bored": 0.0467558319,
+        "Fear": 0.1749668708
+      },
+      {
+        "Angry": 0.1457445097,
+        "Happy": 0.2424348464,
+        "Sad": 0.1970288689,
+        "Excited": 0.2339404817,
+        "Bored": 0.0187516858,
+        "Fear": 0.1620996075
+      }
+    ],
+    "sentiment": [
+      {
+        "negative": 0.181,
+        "neutral": 0.531,
+        "positive": 0.288
+      },
+      {
+        "negative": 0.341,
+        "neutral": 0.124,
+        "positive": 0.535
+      },
+      {
+        "negative": 0.414,
+        "neutral": 0.508,
+        "positive": 0.078
+      },
+      {
+        "negative": 0.046,
+        "neutral": 0.014,
+        "positive": 0.94
+      }
+    ]
+  },
+  "Source Text": "I need to write an example journal for the symposium. Gotta be honest, that makes me anxious. If I had to guess, the affect values for this piece will be anxiety-caused fear. I'm upset I'm not watching Avengers Endgame, but happy because this project is a passion of mine."
+}
