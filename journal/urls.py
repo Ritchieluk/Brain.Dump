@@ -8,5 +8,6 @@ handler500 = 'journal.views.handler500'
 urlpatterns = [
     path('', CreateListView.as_view() , name='journal-home'),
     path('draw/',views.draw),
-    path('testDraw/', views.testDraw)
+    path('testDraw/', views.testDraw),
+    path('show/', views.show)
 ]

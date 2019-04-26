@@ -3,25 +3,15 @@ var spiro = (function (input) {
 	return {
 		load: load
 	}
-	//
-
-	function htmlDecode(input)
-	{
-  		var doc = new DOMParser().parseFromString(input, "text/html");
-  		return doc.documentElement.textContent;
-	}
-
+	//  
 	function load(dict, canvas){
-		var emotionValues = htmlDecode(dict);
-		emotionValues = JSON.parse(emotionValues);
+		var emotionValues = dict;
 		input.emotions = emotionValues["Overall"]["emotion"];
 		console.log("Overall Emotions: ", input.emotions);
 		input.sentiment = emotionValues["Overall"]["sentiment"];
 		console.log("Overall Sentiment: ", input.sentiment);
 		input.sentenceEmotions = emotionValues["Sentences"]["emotion"];
-		console.log("Sentence Emotions: ", input.sentenceEmotions);
 		input.sentenceSentiment = emotionValues["Sentences"]["sentiment"];
-		console.log("Sentence Sentiments: ", input.sentenceSentiment);
 		createEmotions();
 		/*
 		for (i= 0; i < emotionValues["Sentences"]["emotion"].length; i++){
@@ -272,13 +262,15 @@ var spiro = (function (input) {
 			wAvg = [0,0,0];
 			emotionTrack = 0;
 			sentence.forEach(function(emotion){
-				for (i = 0; i < 3; i++){
-					wAvg[i] += emotion * input.emotionColors[emotionTrack][i];
+				if(emotionTrack < 6){
+					for (i = 0; i < 3; i++){
+						wAvg[i] += emotion * input.emotionColors[emotionTrack][i];
+					}
 				}
 				emotionTrack++;
 			});
 			for (i = 0; i < 3; i++)
-				wAvg[i] = parseInt(.5*wAvg[i]);
+				wAvg[i] = parseInt(wAvg[i]);
 			var hex = "#" + componentToHex(wAvg[0]) + componentToHex(wAvg[1]) + componentToHex(wAvg[2]);
 			console.log(hex);
 			input.colors.push(hex);
@@ -292,8 +284,11 @@ var spiro = (function (input) {
 	function setRadii(){
 		i = 0;
 		for(var key in input.emotions){
-			input.radii[i] = input.spiroDiameter/2*input.emotions[key];
-			input.radiiTypes[i] = "h";
+			input.radii[i] = input.spiroDiameter/3*input.emotions[key];
+			if (input.emotions[key] > .333)
+				input.radiiTypes[i] = "h";
+			else
+				input.radiiTypes[i] = "c";
 			i++;
 		}
 		console.log(input.radii);
@@ -350,7 +345,7 @@ var spiro = (function (input) {
 		y: 0
 	},		
 	frameCount: 0,
-	frameMax: 200000,
+	frameMax: 100000,
 	framePartition: 0,
 	curvePoints: [],
 	curveColor: "#0000FF",
@@ -371,7 +366,7 @@ var spiro = (function (input) {
 	// an array of arc values, previous and current. Always draw previous to current
 	arcValues: [],
 	speed: 200,
-	penWidth: .5,
+	penWidth: .75,
 	emotionColors: [
 		[255, 0, 0],  // angry
 		[255,255,0],	// happy
@@ -380,7 +375,7 @@ var spiro = (function (input) {
 		[0, 255, 255],	// bored
 		[255, 0, 255],	// fear
 		[0, 0, 0],		// negative
-		[60, 60, 60],	// neutral
+		[127, 127, 127],	// neutral
 		[255,255,255]		// positive
 	],	
 	sentiment: [
