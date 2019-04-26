@@ -3,7 +3,6 @@ A Sentiment Analysis tool made to translate journal entries into meaningful repr
 
 By:
 ___
-- John Howes
 - Morgan Martin
 - Sam Oates
 - Luke Ritchie
@@ -34,13 +33,12 @@ certain emotions, which will then be passed on to the Drawer.
 
 ### The Drawer
 ___
-*The Drawer* will be an image creation tool making use of parametric trig equations to generate
-a spirograph-like image. It can also make use of a multi-axis chart of percentages of different emotions
-for a less abstract representation.
+*The Drawer* is an image creation tool making use of parametric trig equations to generate
+a spirograph-like image.
 
 ## Future Goals
 ___
-We envision many future applications for such a device.
+We envision many future applications for such a program.
 
 - The machine learning tool could be reinforced by actual analyzation data from psychologists and psychiatrists, and be used to flag entries potentially indicative of mental illness
 - Users could view summaries of their journal entries via most used words, most present emotion, graphs of emotional changes, most common themes, etc.

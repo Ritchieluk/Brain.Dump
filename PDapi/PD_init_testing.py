@@ -11,7 +11,7 @@ from nltk.tokenize import sent_tokenize, word_tokenize
 # print ("Database version : %s " % data)
 
 
-paralleldots.set_api_key("AfHOCgHb46FanBBmFWRsYgiZVdkn9jAES69sGXiQ6dA")
+paralleldots.set_api_key("uMiH4j8JafqX16goSjZuvI93PPMaBqQq2N8EBPzrMvQ")
 
 # for multiple sentence as array
 text="""After May 1940 the good times were few and far between: first there was the war,
