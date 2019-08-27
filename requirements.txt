@@ -30,4 +30,4 @@ tensorflow==1.13.0rc1
 tensorflow-estimator==1.13.0rc0
 termcolor==1.1.0
 vaderSentiment==3.2.1
-Werkzeug==0.14.1
+Werkzeug==0.15.3
