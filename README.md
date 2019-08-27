@@ -35,6 +35,12 @@ certain emotions, which will then be passed on to the Drawer.
 ___
 *The Drawer* is an image creation tool making use of parametric trig equations to generate
 a spirograph-like image.
+You can find examples of this animation here:
+- http://www.cs.uky.edu/~ldri225/braindump/test.php
+- http://www.cs.uky.edu/~ldri225/braindump/test1.php
+- http://www.cs.uky.edu/~ldri225/braindump/test2.php
+- http://www.cs.uky.edu/~ldri225/braindump/test3.php
+
 
 ## Future Goals
 ___
