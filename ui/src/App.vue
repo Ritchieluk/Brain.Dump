@@ -1,7 +1,7 @@
 <template>
-<ion-app>
+<v-app>
     <router-view></router-view>
-</ion-app>
+</v-app>
   <!--
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">

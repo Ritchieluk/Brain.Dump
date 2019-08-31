@@ -1,4 +1,4 @@
-# journal
+# ui
 
 ## Project setup
 ```
