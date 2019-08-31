@@ -17,19 +17,23 @@
                 </v-layout>
             </v-container>
         </v-content>
+        <Footer/>
     </v-app>
 </template>
 
 <script>
 import Menu from "../components/Menu";
 import Toolbar from "../components/Toolbar";
+import Footer from "../components/Footer";
+
 export default {
     data: ()=>({
         drawer:false
     }),
     components: {
         Menu: Menu,
-        Toolbar: Toolbar
+        Toolbar: Toolbar,
+        Footer: Footer
     },
     methods: {
         checkDrawer: function(value){

@@ -22,14 +22,15 @@
                 dark
                 v-on="on"
                 >
-                Dropdown
+                Account
                 </v-btn>
             </template>
             <v-list>
-                <v-list-item
-                @click=""
-                >
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
+                <v-list-item :to="{name: 'SignIn'}">
+                    <v-list-item-title>Sign In</v-list-item-title>
+                </v-list-item>
+                <v-list-item :to="{name: 'SignUp'}">
+                    <v-list-item-title>Sign Up</v-list-item-title>
                 </v-list-item>
             </v-list>
             </v-menu>

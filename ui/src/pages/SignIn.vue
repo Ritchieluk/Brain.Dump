@@ -11,7 +11,7 @@
                 <v-layout>
                     <v-flex>
                         <v-card>
-                            <v-card-title class="headline">New Journal Page</v-card-title>
+                            <v-card-title class="headline">Sign In Page</v-card-title>
                         </v-card>
                     </v-flex>
                 </v-layout>

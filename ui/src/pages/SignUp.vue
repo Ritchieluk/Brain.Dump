@@ -11,7 +11,7 @@
                 <v-layout>
                     <v-flex>
                         <v-card>
-                            <v-card-title class="headline">New Journal Page</v-card-title>
+                            <v-card-title class="headline">Sign Up Page</v-card-title>
                         </v-card>
                     </v-flex>
                 </v-layout>
@@ -25,7 +25,6 @@
 import Menu from "../components/Menu";
 import Toolbar from "../components/Toolbar";
 import Footer from "../components/Footer";
-
 export default {
     data: ()=>({
         drawer:false
