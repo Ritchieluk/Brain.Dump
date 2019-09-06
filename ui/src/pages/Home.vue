@@ -14,6 +14,12 @@
                             <v-card-title class="headline">Home Page</v-card-title>
                         </v-card>
                     </v-flex>
+                    
+                    <v-flex>
+                        <div>
+                                <canvas id="canvasPen" height="884" width="829" style="left:136px;top:-92px;position:absolute;z-index:20"></canvas> 
+                        </div>
+                    </v-flex>         
                 </v-layout>
             </v-container>
         </v-content>
@@ -22,12 +28,16 @@
 </template>
 
 <script>
-import Menu from "../components/Menu";
-import Toolbar from "../components/Toolbar";
-import Footer from "../components/Footer";
+import Menu from "../components/common/Menu";
+import Toolbar from "../components/common/Toolbar";
+import Footer from "../components/common/Footer";
+import json from "../assets/1";
+import spiro from "../spiro";
+
 export default {
     data: ()=>({
-        drawer:false
+        drawer:false,
+        json: json
     }),
     components: {
         Menu: Menu,
@@ -38,6 +48,10 @@ export default {
         checkDrawer: function(value){
             this.drawer=value;
         }
+    },
+    created: function() {
+        let i = spiro.load(json, "canvasPen");
+        console.log(i);
     }
 }
 </script>

@@ -22,9 +22,9 @@
 </template>
 
 <script>
-import Menu from "../components/Menu";
-import Toolbar from "../components/Toolbar";
-import Footer from "../components/Footer";
+import Menu from "../components/common/Menu";
+import Toolbar from "../components/common/Toolbar";
+import Footer from "../components/common/Footer";
 export default {
     data: ()=>({
         drawer:false
