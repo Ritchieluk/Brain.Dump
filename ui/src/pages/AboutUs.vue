@@ -1,49 +1,34 @@
 <template>
-    <v-app>
-        <Menu
-        :display="drawer"
-        @input="checkDrawer"
-        />
-        <Toolbar
-        @toggle="drawer=!drawer"/>
-        <v-content>
-            <v-container>
-                <v-layout>
-                    <v-flex md4 v-for="(person, index) in info" :key="index">
-                        <v-card>
-                            <v-card-title class="headline">{{index}}</v-card-title>
-                            <v-img :src="person.img"></v-img>
-                            <v-card-text>
-                                <h2>Major</h2>
-                                <p>{{person.major}}</p>
-                                <h2>Email</h2>
-                                <p>{{person.email}}</p>
-                            </v-card-text>
-                            <v-btn color="blue darken-2" large icon @click.stop="linkedIn(person.linkedin)">
-                                <v-icon >
-                                    fab fa-linkedin
-                                </v-icon>
-                            </v-btn>
-                            <v-btn color="purple darken-3" @click.stop="github(person.github)" large icon>
-                                <v-icon>fab fa-github</v-icon>
-                            </v-btn>
-                        </v-card>
-                    </v-flex>
-                </v-layout>
-            </v-container>
-        </v-content>
-        <Footer/>
-    </v-app>
+    <v-container>
+        <v-layout>
+            <v-flex md4 v-for="(person, index) in info" :key="index">
+                <v-card>
+                    <v-card-title class="headline">{{index}}</v-card-title>
+                    <v-img :src="person.img"></v-img>
+                    <v-card-text>
+                        <h2>Major</h2>
+                        <p>{{person.major}}</p>
+                        <h2>Email</h2>
+                        <p>{{person.email}}</p>
+                    </v-card-text>
+                    <v-btn color="blue darken-2" large icon @click.stop="linkedIn(person.linkedin)">
+                        <v-icon >
+                            fab fa-linkedin
+                        </v-icon>
+                    </v-btn>
+                    <v-btn color="purple darken-3" @click.stop="github(person.github)" large icon>
+                        <v-icon>fab fa-github</v-icon>
+                    </v-btn>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
-import Menu from "../components/common/Menu";
-import Toolbar from "../components/common/Toolbar";
-import Footer from "../components/common/Footer";
 
 export default {
     data: ()=>({
-        drawer:false,
         info: {
             "Luke Ritchie": {
                 "img": "https://avatars1.githubusercontent.com/u/33823229?s=460&v=4",
@@ -70,15 +55,7 @@ export default {
             }
         }
     }),
-    components: {
-        Menu: Menu,
-        Toolbar: Toolbar,
-        Footer: Footer
-    },
     methods: {
-        checkDrawer: function(value){
-            this.drawer=value;
-        },
         linkedIn: function(value){
             window.location.href = value;
         },
