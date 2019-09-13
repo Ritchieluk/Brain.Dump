@@ -1,16 +1,16 @@
 <template>
     <v-container>
         <v-layout>
-            <v-flex>
+            <v-flex md6>
                 <v-card>
                     <v-card-title class="headline">Home Page</v-card-title>
                 </v-card>
             </v-flex>
             
-            <v-flex>
-                <div>
-                        <canvas id="canvasPen" height="884" width="829" style="left:136px;top:-92px;position:absolute;z-index:20"></canvas> 
-                </div>
+            <v-flex md6>
+                <v-card>
+                    <canvas id="canvasPen" height="auto" width="auto"></canvas>
+                </v-card>
             </v-flex>         
         </v-layout>
     </v-container>
@@ -21,16 +21,14 @@ import json from "../assets/1";
 import spiro from "../spiro";
 
 export default {
-    data: ()=>({
-        json: json
-    }),
-    created: function() {
-        let i = spiro.load(json, "canvasPen");
+   mounted: function() {
+        let canvas = document.getElementById("canvasPen");
+        let i = spiro.load(json, canvas);
         console.log(i);
     }
 }
 </script>
 
-<style lang="scss" scoped>
+<style>
 
 </style>

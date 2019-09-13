@@ -5,19 +5,14 @@ let spiro = (function (input) {
 	}
 	//  
 	function load(dict, canvas){
-		var emotionValues = dict;
+		let emotionValues = dict;
 		input.emotions = emotionValues["Overall"]["emotion"];
 		input.sentiment = emotionValues["Overall"]["sentiment"];
 		input.sentenceEmotions = emotionValues["Sentences"]["emotion"];
 		input.sentenceSentiment = emotionValues["Sentences"]["sentiment"];
 		createEmotions();
-		/*
-		for (i= 0; i < emotionValues["Sentences"]["emotion"].length; i++){
-			input.sentenceEmotions.push(emotionValues["Sentences"]["emotion"][i]+emotionValues["Sentences"]["sentiment"][i]);
-			input.sentenceSentiment.push(emotionValues["Sentences"]["sentiment"][i]);
-		}*/
-		console.log(document.getElementById("canvasPen"));
-		input.canvas = document.getElementById(canvas);
+		
+		input.canvas = canvas;
 		input.canvasWidth = input.canvas.width;
 		input.canvasHeight = input.canvas.height;
 		input.origin.x = input.canvasWidth/2;
@@ -29,12 +24,7 @@ let spiro = (function (input) {
 			input.spiroDiameter = input.canvasWidth;
 		}
 		
-		/*
-		input.canvasDiv = document.getElementById(canvas);
-		input.canvas = document.createElement("canvas");
-		input.canvas.id = input.canvasID;
-		input.canvasDiv.appendChild(input.canvas);
-		*/
+		
 		fillColors();
 		setRadii();
 		setValues();
@@ -48,9 +38,9 @@ let spiro = (function (input) {
 		input.spinPitches = [];
 		
 		input.curveColor = input.colors[input.colorIncrement];
-		var c = 1;
+		let c = 1;
 		
-		var thisRotor;
+		let thisRotor;
 		
 		//build arrays
 		while (c < 6) {
@@ -156,17 +146,17 @@ let spiro = (function (input) {
 			//physics here is subjective
 			let os = (c > 1) ? 1 : 0;
 			if (input.radiiTypes[c] === "h") {
-				var penPitch = (input.spinPitches[c-1] + prevSpinPitch) * mult * -1;
+				let penPitch = (input.spinPitches[c-1] + prevSpinPitch) * mult * -1;
 			} else {
 				let penPitch = (input.spinPitches[c-1] + prevSpinPitch) * mult;
 			}
 
 			//draw this rotor
-			let pt = circlePoint(pt.x, pt.y, centerRad, i * thisPitch);
+			pt = circlePoint(pt.x, pt.y, centerRad, i * thisPitch);
 			//console.log("pt: " + pt.x + " " + pt.y);
 			//draw Pen
 			//pen pitch set in last circle iteration
-			let penPt = circlePoint(pt.x, pt.y, thisRad, i * penPitch);
+			pen = circlePoint(pt.x, pt.y, thisRad, i * thisPitch);
 			
 			c++;
 		}
@@ -174,23 +164,23 @@ let spiro = (function (input) {
 		//draw Pen
 		//pen pitch set in last circle iteration
 		
-		penPt = circlePoint(pt.x, pt.y, input.penWidth, i * penPitch);
+		pen = circlePoint(pt.x, pt.y, input.penWidth, i * thisPitch);
 		//console.log("penPT:" + penPt.x + penPt.y + " at Increment: " + input.frameCount);
 		//mark our starting point
 		if (input.incrementor === 0) {
-			input.penStart = penPt;
+			input.penStart = pen;
 		}
 		
 		//update curve points for drawCurve()
 		//only maintain previous point, so we'll always plot previous to current.
-		input.curvePoints.push(penPt);
+		input.curvePoints.push(pen);
 		if (input.curvePoints.length > 2) {
 			input.curvePoints.shift();
 		}
 	}
 	// draws a curve based on the next set of arc values
 	function drawCurve(){
-		var ctx = input.canvas.getContext("2d");
+		let ctx = input.canvas.getContext("2d");
 		ctx.beginPath();
 		ctx.strokeStyle = input.curveColor;
 		ctx.lineWidth = input.penWidth;
@@ -208,15 +198,15 @@ let spiro = (function (input) {
 			input.curvePoints[1].y.toFixed(1) === input.penStart.y.toFixed(1))||input.frameCount > input.frameMax
 		) 
 		{
-			var nd = new Date().getTime() / 1000;
+			let nd = new Date().getTime() / 1000;
 			input.timer = nd - input.timer;
 			//console.log(settings.timer);
 			input.incrementor = 0;
 			return;
 		}
 
-		var c = 0;
-		var speed = input.speed;
+		let c = 0;
+		let speed = input.speed;
 
 		//loop through the speed iterations without a frame
 		//this should run at least once
@@ -264,7 +254,7 @@ let spiro = (function (input) {
 			});
 			for (let i = 0; i < 3; i++)
 				wAvg[i] = parseInt(wAvg[i]);
-			var hex = "#" + componentToHex(wAvg[0]) + componentToHex(wAvg[1]) + componentToHex(wAvg[2]);
+			let hex = "#" + componentToHex(wAvg[0]) + componentToHex(wAvg[1]) + componentToHex(wAvg[2]);
 			input.colors.push(hex);
 		});		
 		input.framePartition = input.frameMax / input.sentenceEmotions.length;
@@ -272,7 +262,7 @@ let spiro = (function (input) {
 	// populates the radii array based on the emotions array.
 	function setRadii(){
 		let i = 0;
-		for(var key in input.emotions){
+		for(let key in input.emotions){
 			input.radii[i] = input.spiroDiameter/3*input.emotions[key];
 			if (input.emotions[key] > .333)
 				input.radiiTypes[i] = "h";
@@ -282,19 +272,19 @@ let spiro = (function (input) {
 		}
 	}
 	function componentToHex(c) {
-		var hex = c.toString(16);
+		let hex = c.toString(16);
 		return hex.length == 1 ? "0" + hex : hex;
 	}
 	
 	// calculates the next point on a circle given its center, radius, and next angle)
 	function circlePoint(a, b, r, angle){
-		var rad = angle * (Math.PI / 180);
-		var yCor = r * Math.sin(rad);
-		var xCor = r * Math.cos(rad);
+		let rad = angle * (Math.PI / 180);
+		let yCor = r * Math.sin(rad);
+		let xCor = r * Math.cos(rad);
 		xCor = a + xCor;
 		yCor = b - yCor;
 		//console.log("xCor: " + xCor);
-		var coor = {
+		let coor = {
 			x: xCor,
 			y: yCor
 		};
@@ -303,17 +293,17 @@ let spiro = (function (input) {
 	}
 	// redoes the animation given the same information
 	function createEmotions(){
-		var emotionsArray = [];
-		for (var key in input.sentenceEmotions){
-			var tempArray = [];
-			for (var emotion in input.sentenceEmotions[key]){
+		let emotionsArray = [];
+		for (let key in input.sentenceEmotions){
+			let tempArray = [];
+			for (let emotion in input.sentenceEmotions[key]){
 				tempArray.push(input.sentenceEmotions[key][emotion])
 			}
 			emotionsArray.push(tempArray);
 		}
 		let i = 0;
-		for (var sentence in input.sentenceSentiment){
-			for (var sentiment in input.sentenceSentiment[sentence]){
+		for (let sentence in input.sentenceSentiment){
+			for (let sentiment in input.sentenceSentiment[sentence]){
 				emotionsArray[i].push(input.sentenceSentiment[sentence][sentiment]);
 			}
 			i++;

@@ -18,7 +18,7 @@ import Menu from "./components/common/Menu";
 import Toolbar from "./components/common/Toolbar";
 import Footer from "./components/common/Footer";
 export default {
-  name: '#app',
+  name: 'app',
     data: ()=>({
         drawer:false
     }),
