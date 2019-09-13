@@ -18,7 +18,7 @@
                         <v-card>
                             <v-card-title>Profile Information</v-card-title>
                             <v-img max-width="300" aspect-ratio="1" src="https://via.placeholder.com/300"></v-img>
-                        </v-card>
+                        </v-card> 
                     </v-flex>
                     <v-flex md6>
                         <Overview/>
