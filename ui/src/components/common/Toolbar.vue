@@ -11,7 +11,7 @@
         <v-icon large color="blue darken-3">mdi-brain</v-icon>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
-            <v-btn :to="{name: 'Journal'}" color="blue lighten-4">
+            <v-btn :to="{name: 'Journal'}" color="blue lighten-3">
                 Create a New Journal
             <v-icon class="pa-2">fas fa-book</v-icon>
             </v-btn>

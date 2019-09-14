@@ -1,7 +1,7 @@
 <template>
     <v-list>
         <v-list-item
-        :to="{name: 'Home'}">
+        @click.stop="goHome">
             <v-list-item-action>
                 <v-icon>mdi-home</v-icon>
             </v-list-item-action>
@@ -49,6 +49,9 @@
 <script>
 export default {
     methods: {
+        goHome: function(){
+            this.$router.push({name: 'Home'});
+        },
         github: function(){
             window.location.href = "https://github.com/Ritchieluk/Brain.Dump";
         }

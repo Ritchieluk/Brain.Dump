@@ -17,6 +17,7 @@ let spiro = (function (input) {
 		input.canvasHeight = input.canvas.height;
 		input.origin.x = input.canvasWidth/2;
 		input.origin.y = input.canvasHeight/2;
+		console.log(input.origin);
 		if(input.canvasWidth >= input.canvasHeight){
 			input.spiroDiameter = input.canvasHeight;
 		}

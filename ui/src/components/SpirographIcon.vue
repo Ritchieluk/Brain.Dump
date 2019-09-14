@@ -25,6 +25,11 @@ import spiro from "@/spiro";
                 type: Object,
             }
         },
+        updated: function(){
+            console.log(this.id);
+            let canvas = document.getElementById(this.id);
+            spiro.load(this.json, canvas);
+        },
         mounted: function(){
             console.log(this.id);
             let canvas = document.getElementById(this.id);

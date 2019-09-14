@@ -1,14 +1,14 @@
 <template>
-    <v-expansion-panels>
+  <v-expansion-panels>
     <v-expansion-panel
-      v-for="(item,i) in 7"
+      v-for="(item,i) in 4"
       :key="i"
     >
       <v-card>
-      <SpirographIcon
-      :id="ids[i]"
-      :json="json"
-      />
+        <SpirographIcon
+        :id="ids[i]"
+        :json="jsons[i]"
+        />
       </v-card>
     
       <v-expansion-panel-header class="headline">Journal Entry {{i}}<v-spacer></v-spacer>Date <v-spacer></v-spacer></v-expansion-panel-header>
@@ -21,10 +21,14 @@
 
 <script>
 import SpirographIcon from "@/components/SpirographIcon.vue";
-import json from "@/assets/1";
+import json1 from "@/assets/1";
+import json2 from "@/assets/2";
+import json3 from "@/assets/3";
+import json4 from "@/assets/4";
+
     export default {
       data: ()=>({
-        json: json,
+        jsons: [json1, json2, json3, json4],
         ids: ["one", "two", "three", "four", "five", "six", "seven"]
       }),
 
