@@ -1,21 +1,30 @@
 <template>
     <v-footer height="auto">
-        <v-layout align-center justify-center row >
-            <v-flex class="pa-2" md4 text-xs-center>Brain Dump is a journal storage site that provides additional insight into your moods and emotions</v-flex>
-            <v-flex class="pa-2" md4 py-3 text-xs-center xs12>
-                &copy; {{ new Date().getFullYear()}} - <strong>Luke Ritchie, Morgan Martin, Oscar Skean</strong>
-            </v-flex>
-            <v-flex class="pa-2" md4>
-                <v-btn :to="{name: 'AboutUs'}">About Us</v-btn>
-            </v-flex>
-        </v-layout>
+        <v-container align-content-center justify-center wrap >
+            <v-row justify="center" class="pa-2" md12 >
+                Brain Dump is a journal storage site that provides additional insight into your moods and emotions
+            </v-row>
+            <v-row justify="center" class="pa-2" md12  xs12>
+                {{dateLine}}
+            </v-row>
+            <v-row justify="center" class="pa-2" md12>
+                <v-btn outlined :to="{name: 'AboutUs'}">About Us</v-btn>
+            </v-row>
+        </v-container>
     </v-footer>
 </template>
 
 <script>
-    export default {
-        
+export default {
+    data: ()=>({
+        date: new Date().getFullYear()
+    }),
+    computed: {
+        dateLine: function(){
+            return `${this.date} - Luke Ritchie, Oscar Skean, Morgan Martin`;
+        }
     }
+}
 </script>
 
 <style lang="scss" scoped>
