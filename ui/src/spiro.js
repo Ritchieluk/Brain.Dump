@@ -311,6 +311,8 @@ let spiro = (function (input) {
 		}
 		input.sentenceEmotions = emotionsArray;
 	}
+	// TODO: implement redraw function
+	
 })(
 // input class
 	{

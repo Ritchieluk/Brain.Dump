@@ -1,5 +1,7 @@
 <template>
-    <canvas :id="id" :height="height" :width="width"></canvas>
+    <v-card>
+        <canvas :id="id" :height="height" :width="width"></canvas>
+    </v-card>
 </template>
 
 <script>
@@ -34,7 +36,8 @@ import spiro from "@/spiro";
             console.log(this.id);
             let canvas = document.getElementById(this.id);
             spiro.load(this.json, canvas);
-        }
+        },
+        
     }
 </script>
 

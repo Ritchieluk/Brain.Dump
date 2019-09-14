@@ -52,7 +52,7 @@ export default {
             
             // switch user to full page where animation will play
             // TODO: This journalViewer page should be 1-many related
-            this.$router.push({name: 'journalViewer'});
+            this.$router.push({name: 'JournalView'});
         }
     }
 }
