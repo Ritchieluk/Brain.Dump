@@ -9,7 +9,9 @@ ___
 - Oscar Skean
 - Morgan Martin
 
-
+>Disclaimer
+>
+>This repository used to house a Django application, this was the old version of the application. It has since been split into 3 components and is being rebuilt. To find that application, you can go here: https://github.com/Ritchieluk/OldBrainDump
 
 ## Components
 
@@ -37,7 +39,8 @@ certain emotions, which will then be passed on to the Drawer.
 
 ### The API
 ___
-The API is a Flask application that handles communication between the Journal, the Interpreter, and the Database.
+The API is a Flask application that handles communication between the Journal, the Interpreter, and the Database. A link to that project can be found here: https://github.com/Ritchieluk/BrainDumpAPI
+
 
 ## Future Goals
 ___
