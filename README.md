@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/ldri225/ldri225/_apis/build/status/Ritchieluk.Brain.Dump%20(1)?branchName=master)](https://dev.azure.com/ldri225/ldri225/_build/latest?definitionId=2&branchName=master)
+
 # Brain.Dump UI
 A Sentiment Analysis tool made to translate journal entries into meaningful representations of the emotion within the entries.
 
@@ -7,7 +9,7 @@ ___
 - Oscar Skean
 - Morgan Martin
 
-[![Build Status](https://dev.azure.com/ldri225/ldri225/_apis/build/status/Ritchieluk.Brain.Dump%20(1)?branchName=master)](https://dev.azure.com/ldri225/ldri225/_build/latest?definitionId=2&branchName=master)
+
 
 ## Components
 
