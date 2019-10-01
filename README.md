@@ -6,8 +6,7 @@ A Sentiment Analysis tool made to translate journal entries into meaningful repr
 ___
 By:
 - Luke Ritchie
-- Oscar Skean
-- Morgan Martin
+
 
 >#### Disclaimer
 >
