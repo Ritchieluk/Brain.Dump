@@ -3,8 +3,8 @@
 # Brain.Dump UI
 A Sentiment Analysis tool made to translate journal entries into meaningful representations of the emotion within the entries.
 
-By:
 ___
+By:
 - Luke Ritchie
 - Oscar Skean
 - Morgan Martin
