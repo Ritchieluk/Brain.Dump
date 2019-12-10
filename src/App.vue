@@ -1,36 +1,39 @@
 <template>
-  <v-app>
-    <v-app-bar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        text
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
-    </v-app-bar>
-
-    <v-content>
-      <HelloWorld/>
-    </v-content>
-  </v-app>
+    <v-app>
+        <Menu
+        :display="drawer"
+        @input="checkDrawer"
+        />
+        <Toolbar
+        @toggle="drawer=!drawer"/>
+        <v-content>
+            <router-view></router-view>
+        </v-content>
+        <Footer/>
+    </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
-
+import Menu from "./components/common/Menu";
+import Toolbar from "./components/common/Toolbar";
+import Footer from "./components/common/Footer";
 export default {
-  name: 'App',
-  components: {
-    HelloWorld,
-  },
-  data: () => ({
-    //
-  }),
-};
+  name: 'app',
+    data: ()=>({
+        drawer:false
+    }),
+    components: {
+        Menu: Menu,
+        Toolbar: Toolbar,
+        Footer: Footer
+    },
+    methods: {
+        checkDrawer: function(value){
+            this.drawer=value;
+        }
+    }
+}
 </script>
+
+<style>
+</style>
